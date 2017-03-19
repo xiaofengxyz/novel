@@ -32,7 +32,7 @@ foreach(Array('_GET','_POST','_COOKIE') as $_request)
 }
 echo DEDEINC.'/common.func.php';
 require_once(DEDEINC.'/common.func.php');
-echo "install--------\n";
+
 if(file_exists($insLockfile))
 {
     exit(" 程序已运行安装，如果你确定要重新安装，请先从FTP中删除 install/install_lock.txt！");
