@@ -1,0 +1,173 @@
+<?php
+if(preg_match('#^gb#i',$cfg_soft_lang)) $zuozhe = gb2utf8($zuozhe);
+if(preg_match('#^gb#i',$cfg_soft_lang)) $retypename = gb2utf8($retypename);
+if(preg_match('#^gb#i',$cfg_soft_lang)) $cfg_webname = gb2utf8($cfg_webname);
+if(preg_match('#^gb#i',$cfg_soft_lang)) $typename = gb2utf8($typename);
+if(preg_match('#^gb#i',$cfg_soft_lang)) $title = gb2utf8($title);
+if(preg_match('#^gb#i',$cfg_soft_lang)) $body = gb2utf8(pr_str_replace($body));
+if(preg_match('#^gb#i',$cfg_soft_lang)) $page = gb2utf8($page);
+if(preg_match('#^gb#i',$cfg_soft_lang)) $tuijian = gb2utf8($tuijian);
+if(preg_match('#^gb#i',$cfg_soft_lang)) $novel_powerby = gb2utf8($novel_powerby);
+echo"<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n";
+?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+<title><?php echo "{$typename}"; ?>最新章节_<?php echo $title; ?>-<?php echo $cfg_webname; ?></title>
+<meta name="keywords" content="<?php echo $title; ?>,<?php echo "{$typename}"; ?>,<?php echo "{$typename}"; ?>全文在线阅读,<?php echo "{$typename}"; ?>全文免费阅读" />
+<meta name="description" content="<?php echo "{$typename}"; ?>_<?php echo $title; ?>_无弹窗全文免费在线阅读_txt电子书下载，<?php echo "{$typename}"; ?>最新的章节<?php echo $title; ?>更新了，速度一流，阅读环境舒适，<?php echo "{$typename}"; ?>爱好者首选之站的<?php echo $cfg_webname; ?>阅读<?php echo $title; ?>。" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="/css/h_wap.css" media="all" />
+<script src="/js/zepto.min.js"></script>
+<script src="/js/mobile.js"></script>
+<script type="text/javascript">
+	var _inlineCodes = [];
+    var _inlineRun = function(fn){
+    	_inlineCodes.push(fn);
+    };
+</script></head>
+<body class="chapter" ondragstart="return false" oncopy="return false;" oncut="return false;" oncontextmenu="return false">
+<?php include($cfg_templets_dir."/wap/head.htm"); ?>
+<div class="container">
+	<div class="top-alert"></div>
+	<div class="mod mod-back breadcrumb">
+		<div class="bd">
+			<a href="/" class="home"></a>
+			<span class="divide"></span>
+			<a href="/wap.php?action=list&type=top&id=<?php echo $reid.$wxuid; ?>"><?php echo str_replace("小说","",str_replace("·","",$retypename)); ?>小说</a>
+			<span class="divide"></span>
+			<a href="/wap.php?action=list&id=<?php echo $typeid.$wxuid; ?>"><?php echo "{$typename}"; ?>章节目录</a>
+		</div>
+	</div>
+	<h1 class="page-title"><?php echo $title; ?></h1>
+	<div class="slide-ad"><!--广告--></div>
+	<div class="mod mod-page" id="ChapterView" data-already-grab=""	data-hongbao="-1"	>
+		<div class="hd">
+			<div class="config">
+				<span class="night" data-role="mode"><i></i></span>
+				<span data-role="inc">+A</span>
+				<span data-role="des">-A</span>
+			</div>
+		</div>
+		<div class="bd">
+			<div class="page-content font-large">
+				<p><?php echo $body; ?></p>
+			</div>
+		</div>
+	</div>
+	<div class="tuijian"><span>推荐阅读：</span><?php echo $tuijian; ?></div>
+	<div class="slide-ad"><!--广告--></div>
+	<div class="mod page-control">
+		<div class="bd">
+			<?php echo $page; ?>
+		</div>
+	</div>
+	<div class="mod mod-back">
+		<div class="bd">
+			<a href="/" class="home"></a>
+			<span class="divide"></span>
+			<a href="/wap.php?action=list&type=top&id=<?php echo $reid.$wxuid; ?>"><?php echo str_replace("小说","",str_replace("·","",$retypename)); ?>小说</a>
+			<span class="divide"></span>
+			<a href="/wap.php?action=list&id=<?php echo $typeid.$wxuid; ?>"><?php echo "{$typename}"; ?>章节目录</a>
+		</div>
+	</div>
+</div>
+<script>
+			_inlineRun(function(){
+				var page = $(".mod-page");
+				var isTouch = !!("ontouchstart" in window);
+				var isMouse = !!("onmousemove" in window);
+				
+				var chapterView = $("#ChapterView"), body = $("body");
+				var pageContent = chapterView.find(".page-content"), saveFont = core.cookie("current-font"), currentFont = 1;
+				
+				var font = function(){
+					//font size;
+					var sizes = ["font-normal", "font-large", "font-xlarge", "font-xxlarge", "font-xxxlarge"], 
+						level = sizes.length;
+					
+					return {
+						set: function(c){
+							console.log(sizes[currentFont])
+							pageContent.toggleClass( sizes[currentFont] + " " + sizes[c] );
+							currentFont = c;
+							core.cookie("current-font", c, { expires: 3600 });
+							core.cookie("currentFontString", sizes[c], { expires: 3600 });
+						},
+						increase: function(){
+							if( currentFont < level - 1 ) {
+								this.set(currentFont + 1)
+							}
+						},
+						descrease: function(){
+							if( currentFont > 0 ) {
+								this.set( currentFont - 1 );
+							}
+						},
+						day: function(){
+							isNight = false;
+							body.removeClass("night");
+							core.cookie.removeCookie("night-mode", {});
+						},
+						night: function(){
+							isNight = true;
+							body.addClass("night");
+							core.cookie("night-mode", true, { expires: 3600 });
+						}
+					}
+				}();
+				
+				if( typeof saveFont !== "undefined" ){
+					font.set(saveFont * 1);
+				}
+				
+				var isNight = !!core.cookie("night-mode");
+				
+				if( isNight ){
+					font.night();
+				}
+				
+				function action(){
+					var type = $(this).data("role");
+						
+					if( type == "inc" ){
+						font.increase();
+					}else if( type == "des" ) {
+						font.descrease();
+					}else if( type == "mode" ){
+						if( isNight ){
+							font.day();
+						}else{
+							font.night();
+						}
+					}
+				}
+				
+				core.Tabs( $(".chapter-recommend .tab-choose a"), $(".chapter-recommend ul") ) 
+				
+				if( isTouch ){
+					chapterView
+						.on("touchstart MSPointerDown", ".config span", function(){
+							$(this).addClass("active");
+						})
+						.on("touchend MSPointerUp", ".config span", function(){
+							$(this).removeClass("active");
+						});
+						
+					chapterView.on("touchend MSPointerUp", ".config span", action)
+				}else if( isMouse ){
+					chapterView.on("click", ".config span", action)
+				}
+			});
+		</script>
+<?php include($cfg_templets_dir."/wap/footer.htm"); ?>
+<!--[if IE]>
+<link href="" rel="stylesheet" type="text/css" />
+<![endif]-->
+<script src="/js/zepto.min.js"></script>
+<script src="/js/mobile.js"></script>
+</body>
+</html>

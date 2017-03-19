@@ -1,0 +1,3 @@
+<menu:item ico="images/manage1.gif" link="sys_info.php" title="修改参数" />
+<menu:item ico="images/file_dir.gif" link="catalog_main.php" title="栏目管理" />
+<menu:item ico="images/manage1.gif" link="co_main.php" title="采集管理" />

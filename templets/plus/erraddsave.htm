@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $cfg_soft_lang; ?>" />
+<title><?php echo $cfg_webname;?>_小说挑错-感谢您的支持！</title>
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<link rel = "Shortcut Icon" href="favicon.ico" />
+</head>
+<body>
+<div class="head">
+	<div class="header">
+			<div class="logo"><a href="<?php echo $cfg_basehost;?>" title="<?php echo $cfg_webname;?>"></a></div>
+			<ul class="menu">
+				<li><a href="<?php echo $cfg_basehost;?>" title="<?php echo $cfg_webname;?>">首页</a></li>
+				
+				<li><a href='/xuanhuanxiaoshuo/' title='好看的玄幻小说'><span>玄幻小说</span></a></li>
+				<li><a href='/xiuzhenxiaoshuo/' title='好看的修真小说'><span>修真小说</span></a></li>
+				<li><a href='/yanqingxiaoshuo/' title='好看的言情都市'><span>言情都市</span></a></li>
+				<li><a href='/chuanyuexiaoshuo/' title='好看的穿越小说'><span>穿越小说</span></a></li>
+				<li><a href='/kehuanxiaoshuo/' title='好看的科幻小说'><span>科幻小说</span></a></li>
+				<li><a href='/wuxiaxiaoshuo/' title='好看的武侠小说'><span>武侠小说</span></a></li>
+				<li><a href='/mingzhu/' title='好看的名著'><span>名著</span></a></li>	
+			</ul>
+			<div class="search">
+				<form name="formsearch" action="/plus/search.php">
+					<input type="hidden" name="kwtype" value="0" />
+					<input type="hidden" name="searchtype" value="" />
+					<input name="q" type="text" class="search-keyword" id="search-keyword" value="输入小说或作者..." 	onfocus="if(this.value=='输入小说或作者...'){this.value='';}"  onblur="if(this.value==''){this.value='输入小说或作者...';}" />
+					<button type="submit" class="search-submit">搜索</button>
+				</form>
+			</div>
+			<ul class="nav">
+				<li><a href="javascript:window.external.AddFavorite('<?php echo $cfg_basehost;?>','<?php echo $cfg_webname;?>')">收藏<?php echo $cfg_webname;?></a></li>
+			</ul>
+		</div>
+</div>
+<div class="padding">
+<div align="center">
+<form action="/tiaocuo.php"  method="post" name="feedback">
+     <input type='hidden' name='dopost' value='saveedit'>
+     <input type="hidden" name="title" value="<?php echo $title?>" />
+     <input type="hidden" name="aid" value="<?php echo $aid?>" />
+	 <input type="hidden" name="backurl" value="<?php echo $backurl?>" />
+<table width="980px" align="center" cellpadding="0" cellspacing="0" bgcolor="#cccccc">
+	<tr>
+		<td width="100" height="30" align="right" bgcolor="#FFFFFF">错误章节：</td>
+        <td bgcolor="#FFFFFF" align="left"><?php echo $typename.$title;?></td>
+	</tr>
+    <tr>
+    	<td height="30" align="right" bgcolor="#FFFFFF">错误类型：</td>
+        <td bgcolor="#FFFFFF" align="left">
+        	<select name="type">
+            	<option value="1">没有文字内容</option>
+                <option value="2">少了一部分</option>
+				<option value="3">章节内容错误</option>
+				<option value="4">缺少上一章</option>
+   	    </select>        </td>
+    </tr>
+    <tr>
+    	<td align="right" bgcolor="#FFFFFF">
+        	修正建议：       </td>
+        <td bgcolor="#FFFFFF" align="left">
+        	<textarea name="erradd" cols="40" rows="4" class="ipt-txt"></textarea>        </td>
+    </tr>
+    <tr>
+    	<td height="35" align="center" bgcolor="#FFFFFF">&nbsp;</td>
+    	<td bgcolor="#FFFFFF" align="left"><input name="提交" type="submit" value="提交" class="btn-2"/>
+          <input name="重置" type="reset" value="重置" class="btn-2"/></td>
+      </tr bgcolor="#FFFFFF">
+	  <tr ><td height="40" align="center" bgcolor="#FFFFFF" colspan="2" >非常感谢您的支持!<br />邀请您在提交本章错误建议后加入本站官方QQ群，可以随时获取更多更新的极品小说信息。</td
+	  </tr>
+</table>
+</form>
+</div>
+</div>
+<div class="foot">
+	<a href="<?php echo $cfg_basehost;?>" title="<?php echo $cfg_webname;?>"><?php echo $cfg_webname;?></a>全文在线阅读 | 只分享<a href="/" title="好看的小说">好看的小说</a> | <a href="/" title="TXT电子书下载">TXT电子书下载</a></p> 
+	<p>本站小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
+</div>
+</body>
+</html>

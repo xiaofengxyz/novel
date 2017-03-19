@@ -1,0 +1,88 @@
+<div class="Layout topbox">
+  <div class="topbar">
+    <div class="mainbox">
+      <div class="left_con">
+        <ul>
+          <li><a href="{dede:global.cfg_basehost/}/" title="{dede:global.cfg_webname/}">{dede:global.cgf_top_left/}</a></li>
+          <li><em class="ver">|</em><a href="{dede:global.cfg_wapurl/}" class="name" style="color:#F00; text-decoration:underline" title="在手机上阅读" target="_blank">手机版</a></li><li><em class="ver">|</em><a href="/over.html" class="name" style="color:#F00;" title="完本小说" target="_blank">完本小说</a></li><li><em class="ver">|</em><a href="/txt.html" class="name" style="color:#F00;" title="小说下载" target="_blank">小说下载</a></li>
+        </ul>
+      </div>
+      <div class="right_con">
+        <ul class="UL">
+          <li>{dede:global.cgf_top_right/}</li>
+          <li><em class="ver">|</em><a href="javascript:" title="加入收藏夹" onclick="addBookmark('{dede:global.cgf_top_left/}','{dede:global.cfg_basehost/}')">收藏本站</a></li>
+        </ul>
+        <ul class="fUL">
+          <li><a href="/" title="返回首页">返回首页</a></li>
+		  {dede:php}
+			global $dsql;
+			$s="";
+			$query = "SELECT * FROM dede_arctype WHERE reid=0 and id<>45 order by sortrank";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($row['id']==$tid)
+					$s.='<li><em class="ver">|</em><a class="con" href="'.$row['typedir'].'.html" title="'.str_replace("·","",$row['typename']).'小说">'.str_replace("·","",$row['typename']).'</a></li>';
+				else
+				{
+					$reidrow = $dsql->GetOne("SELECT reid FROM dede_arctype where id=$tid");
+					if($reidrow[reid]==$row['id'])
+						$s.='<li><em class="ver">|</em><a class="con" href="'.$row['typedir'].'.html" title="'.str_replace("·","",$row['typename']).'小说">'.str_replace("·","",$row['typename']).'</a></li>';
+					else
+						$s.='<li><em class="ver">|</em><a href="'.$row['typedir'].'.html" title="'.str_replace("·","",$row['typename']).'小说">'.str_replace("·","",$row['typename']).'</a></li>';
+				}
+			}
+			echo $s;
+		{/dede:php}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="Layout h">
+  <div class="header">
+    <div class="top">
+      <div class="logo"><a href="{dede:global.cfg_basehost/}" title="{dede:global.cfg_webname/}"><img src="/images/logo.png" alt="{dede:global.cfg_webname/}" /></a></div>
+      <div class="c_con">{dede:myad name='top1'/}
+      </div>
+      <div class="s_box">
+        <div class="s_entry">{dede:hotwords num='4' maxlength='10' subday='3'/}</div>
+        <form name="searchform" id="searchform" method="get" target="_blank" action="/plus/search.php">		
+			<input type="hidden" name="kwtype" value="0" />
+			<input type="hidden" name="searchtype" value="" />
+			<input name="q" id="searchword" type="text" maxlength="18" />
+			<input type="submit" value="搜索" id="s_btn" />
+        </form>
+        <div class="hotword">
+			<h3>热搜：</h3>          
+			{dede:hotwords num='6' maxlength='10' subday='30'/}
+         </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="box">
+	  <a href="{dede:global.cfg_basehost/}" class="home" title="{dede:global.cfg_webname/}">{dede:global.cfg_webname/}</a>
+	  {dede:php}
+			global $dsql;
+			$s="";
+			$query = "SELECT * FROM dede_arctype WHERE reid=0 and id<>45 order by sortrank";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($row['id']==$tid)
+					$s.='<a class="ph" href="'.$row['typedir'].'.html" title="'.str_replace("·","",$row['typename']).'小说">'.$row['typename'].'</a>';
+				else
+				{
+					$reidrow = $dsql->GetOne("SELECT reid FROM dede_arctype where id=$tid");
+					if($reidrow[reid]==$row['id'])
+						$s.='<a class="ph" href="'.$row['typedir'].'.html" title="'.str_replace("·","",$row['typename']).'小说">'.$row['typename'].'</a>';
+					else
+						$s.='<a href="'.$row['typedir'].'.html" title="'.str_replace("·","",$row['typename']).'小说">'.$row['typename'].'</a>';
+				}
+			}
+			echo $s;
+		{/dede:php}
+		</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>{dede:global name='keyword' function='RemoveXSS(@me)/}小说全集_{dede:global.cfg_webname/}</title>
+<meta name="description" content="{dede:global name='keyword' function='RemoveXSS(@me)'/}的小说全集目录_{dede:global.cfg_webname/}" />
+<meta name="keywords" content="{dede:global name='keyword' function='RemoveXSS(@me)'/},{dede:global name='keyword' function='RemoveXSS(@me)'/}小说完结,{dede:global name='keyword' function='RemoveXSS(@me)'/}小说在线阅读,{dede:global name='keyword' function='RemoveXSS(@me)'/}小说txt下载" />
+<link rel="stylesheet" href="/css/so.css" />
+<link rel="stylesheet" href="/css/list.css" />
+</head>
+<body class="list">
+<div class="SO">
+  <div id="hd">
+    <div class="has-layout">
+      <div id="hd-inner">
+        <div id="hd-nav">
+			<span class="hd-logo">
+				<a target="_self" href="/"><img title="返回首页" alt="{dede:global.cfg_webname/}" src="/images/search_list.gif"></a>
+			</span>
+			<span class="fuck-tabs subject">
+				<a href="/plus/search.php?stype=zuozhe&keyword={dede:global name='keyword' function='RemoveXSS(@me)/}" class="zz">仅作者</a>
+				<a href="/plus/search.php?stype=book&keyword={dede:global name='keyword' function='RemoveXSS(@me)/}" class="bt">仅小说</a>
+				<a href="/plus/search.php?retype=chuanyue&keyword={dede:global name='keyword' function='RemoveXSS(@me)/}" class="qh">穿越·古代</a>
+				<a href="/plus/search.php?retype=dushi&keyword={dede:global name='keyword' function='RemoveXSS(@me)/}" class="wx">现代·都市</a>
+				<a href="/plus/search.php?retype=qingchun&keyword={dede:global name='keyword' function='RemoveXSS(@me)/}" class="ds">浪漫·青春</a>
+				<a href="/plus/search.php?retype=xuanhuan&keyword={dede:global name='keyword' function='RemoveXSS(@me)/}" class="ls">玄幻·仙侠</a>
+				<a href="/plus/search.php?retype=kehuan&keyword={dede:global name='keyword' function='RemoveXSS(@me)/}" class="yx">科幻·灵异</a>
+				<a href="/plus/search.php?retype=tongren&keyword={dede:global name='keyword' function='RemoveXSS(@me)/}" class="kh">同人·游戏</a>
+			</span>
+		</div>
+      </div>
+    </div>
+  </div>
+  <div id="warper">
+    <div id="head" style="position:relative;z-index:888;">
+      <form class="form" method="get" action="/plus/search.php" onsubmit="check(1,2)">
+        <span id="suggest-align" class="round">
+        <input type="hidden" name="fuck" value="subject" />
+        <input name="q" id="searchword" type="text" maxlength="18" tabindex="1" class="input_key" value="{dede:global name='keyword' function='RemoveXSS(@me)/}" />
+        </span> <span class="button">
+        <input type="submit" tabindex="2" value="搜索一下" class="s_btn" />
+        </span>
+      </form>
+    </div>
+    <div id="container">
+      <div id="main"><ul class="ul_b_list">
+		{dede:list perpage='1'}
+		<li>
+			  <h2><span>[field:retypename/]</span><a href="[field:typeurl/]" title="[field:typename/]">[field:bookname/]</a></h2>
+			  <div class="pic">
+				<a href="[field:typeurl/]" title="[field:typename/]"><img alt="[field:typename/]" src="[field:typeimg/]"/></a>
+				<span class="eSpan"></span><a href="[field:typeurl/]"class="eA"  title="[field:typename/]">[field:bookname function='html2text(@me)'/]</a>
+			  </div>
+			  <div class="words">
+				<p class="state">
+				作者：<a href="[field:zuozhedir/].html" title="[field:bookzuozhe/]作品">[field:bookzuozhe/]</a>&nbsp;&nbsp;&nbsp;&nbsp;类型：<a href="[field:retypedir/].html" title="[field:retypename/]小说">[field:retypename/]</a>&nbsp;&nbsp;&nbsp;&nbsp;字数：[field:booksize/]<br />
+			总点击：[field:bookclick/]&nbsp;&nbsp;&nbsp;&nbsp;月点击：[field:bookclickm/]&nbsp;&nbsp;&nbsp;&nbsp;周点击：[field:bookclickw/]&nbsp;&nbsp;&nbsp;&nbsp;总推荐：[field:tuijian/]&nbsp;&nbsp;&nbsp;&nbsp;月推荐：[field:tuijianm/]&nbsp;&nbsp;&nbsp;&nbsp;周推荐：[field:tuijianw/]
+			
+				</p>
+				<p>简介：<p>[field:description2 function='html2text(@me)'/]……</p>
+				<p class="arcurl">[field:typeurl/]&nbsp;2013-02-28
+				<span class="more">&nbsp;-&nbsp;<a href="[field:typeurl/]" target="_blank">查看书目</a>&nbsp;-&nbsp;<a href="[field:typeurl/]" target="_blank">立即阅读</a></span>
+				</p>
+			  </div>
+			</li>
+		{/dede:list} 		
+			
+			<script>setSDATA('',searchword);</script></ul></div>
+			<div id="page">
+				<a href="#" class="on" target="_self">第一页</a><a href="#" class="on" target="_self">上一页</a><a href="#">1</a><strong>2</strong><a href="#">3</a><a href="#" class="on" target="_self">下一页</a><a href="#" class="on" target="_self">最后一页</a><span class="nums">&nbsp;:&nbsp;:&nbsp;找到相关结果约{dede:field name='totalresult'/}个</span>
+			</div>
+		</div>
+    <div id="rs_bg">
+		{dede:likewords num='8'runphp='yes'}
+  if (@me!=''){@me = "<div id='rs'><table><tbody><tr><th class='tt' rowspan='2'>相关搜索:</th><th>".@me."</th><td></td></tr></tbody></table></div>";}
+ {/dede:likewords}
+	</div>
+    <div id="search">
+       <form class="form" method="get" action="/plus/search.php" onsubmit="check(1,2)">
+        <span class="round">
+        <input type="hidden" name="fuck" value="subject" />
+        <input id="keyword2" name="q"type="text" maxlength="18" tabindex="1" class="input_key" value="{dede:global name='keyword' function='RemoveXSS(@me)/}" />
+        </span> <span class="button">
+        <input type="submit" value="搜索一下" class="s_btn" />
+        </span>
+      </form>
+    </div>
+  </div>
+  <div class="footer-wrap">
+    <div id="footer"> <em>小说搜索，就是这么简单！</em><a href="{dede:global.cfg_basehost/}" target="_blank">数据由{dede:global.cfg_webname/}提供</a></div>{dede:myad name='tongji'/}
+  </div>
+</div>
+</body>
+</html>

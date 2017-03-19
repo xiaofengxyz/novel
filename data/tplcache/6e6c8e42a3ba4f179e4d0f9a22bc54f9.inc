@@ -1,0 +1,1 @@
+<a href="[field:typedir/]/[field:id/].html">[field:title/]</a>£¨[field:pubdate function='date("Y-m-d H:i:s",@me)'/]£©

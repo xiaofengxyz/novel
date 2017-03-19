@@ -1,0 +1,71 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>自动采集更新插件</title>
+<script language='javascript'>
+function SubmitNew()
+{
+	document.form1.totalnum.value = "0";
+	document.form1.submit();
+}
+</script>
+<link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table width="98%" border="0" cellpadding="3" cellspacing="1" bgcolor="#D1DDAA" align="center">
+  <tr>
+      <td height="20" colspan="2" background='images/tbg.gif'>
+      	<table width="98%" border="0" cellpadding="0" cellspacing="0">
+         <form name='form2' action='co_url.php' target='stafrm'>
+         	<input type='hidden' name='small' value='1'>
+         	<input type='hidden' name='nid' value='<?php echo $nid; ?>'>
+         	</form>
+          <tr>
+            <td width="30%" height="18">
+            	<strong><?php echo $ntitle; ?></strong>
+            </td>
+            <td width="70%" align="right">
+            	<input type="button" name="b11" value="查看已下载" class="coolbg np" onClick="document.form2.submit();" style="width:90px" />
+              <input type="button" name="b12" value="采集节点管理" class="coolbg np" style="width:90px" onClick="location.href='co_main.php';" />
+              <input type="button" name="b13" value="导出数据" class="coolbg np" style="width:90px" onClick="location.href='co_export.php?nid=<?php echo $nid; ?>';" />
+              </td>
+          </tr>
+        </table></td>
+    </tr>
+ <tr bgcolor="#FFFFFF">
+      <td colspan="2" id="mtd">
+	  <div id='mdv' style='width:100%;height:350px;'>
+	<p style="line-height: 150%">&nbsp;</p>
+<p><strong>插件名称：</strong>DEDECMS自动采集伪原创5.7正式版<br />
+<strong>插件作者：</strong>QQ:734686669<br />
+<strong>发布日期：</strong>2014年6月30日<br />
+<strong>支持版本：</strong>DEDECMS5.7<br />
+<strong>主要功能:</strong><br />主要功能介绍（以下功能的实现是基于网站有流量的情况下的，任何操作都需要有一个促发器，访问网站就是一个促发器，蜘蛛来访不算）：<br />1、首页随机采集一篇文章，并更新首页和该文章及上个ID的文章（如果上个ID不是同栏目的话就不是上一篇文章）。<br />2、列表页首先更新当前列表页及下一页。（第N页就是更新N和N+1页。客户看到永远是最新的）<br />3、后台可以绑定栏目.请自行绑定。<br />4、自动生成TAG功能、自动摘要、自动关键词。<br />5、可设置是否自动随机推荐，特荐，幻灯，头条。<br />6、可以设置采集间隔时间。<br />7、可以设置每个规则每次采集的文章数量以及每天采集的文章总数量上限。<br /><br /><strong>使用说明：</strong><br />
+1、需要伪原创的请打开根目录下的word_replace.txt，进入采集节点管理那里导入<br />
+2、自动采集方式：<br />
+首页在底部插入 &lt;script src=&quot;/plus/spider.php&quot;&gt;&lt;/script&gt;<br />
+列表页：<br />
+<br />
+在/include/common.func.php <br />
+增加一下函数 <br />
+function spiderpage($str) <br />
+{ <br />
+$a=explode('/',$str); <br />
+if ($a) <br />
+{ <br />
+$str=1; <br />
+} <br />
+return $str; <br />
+} <br />
+列表页代码如下 ：&lt;script src=&quot;/plus/spider.php?id={dede:field.typeid/}&amp;page={dede:pagelist listsize='0' listitem='pageno' function='trim(spiderpage(html2text(@me)))'/}&quot;&gt;&lt;/script&gt;</p>
+ 
+
+	  </div>
+	  <script language="JavaScript">
+	  document.all.mdv.style.pixelHeight = screen.height - 360;
+	  </script>
+	  </td>
+    </tr>
+</table>
+</body>
+</html>

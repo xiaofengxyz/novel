@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>采集</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<script type="text/javascript">
+function SetCwinHeight(iframeObj){
+	if (document.getElementById){
+		if (iframeObj && !window.opera){
+			if (iframeObj.contentDocument && iframeObj.contentDocument.body.offsetHeight){
+				iframeObj.height = iframeObj.contentDocument.body.offsetHeight;
+			}else if(document.frames[iframeObj.name].document && document.frames[iframeObj.name].document.body.scrollHeight){
+				iframeObj.height = document.frames[iframeObj.name].document.body.scrollHeight;
+			}
+		}
+	}
+}
+</script>
+</head>
+<body>
+<iframe name="frameContent" id="fetchprocess" src="caiji.php" frameborder="0" width="100%" onload="SetCwinHeight(this)"></iframe>
+<input type="hidden" id="lastmove" value="" />
+<input type="hidden" id="cms" value="" />
+<script type="text/JavaScript">
+function checkmove()
+{
+	var nowtime=Math.round(new Date().getTime()/1000);
+	if (nowtime-document.getElementById("lastmove").value>180)
+	{
+		document.getElementById("lastmove").value=nowtime; 
+		document.getElementById("fetchprocess").src="caiji.php?cm="+document.getElementById("cms").value;
+	}
+	setTimeout("checkmove();",10000);
+}
+setTimeout("checkmove();",10000);
+</script>
+</body>
+</html>

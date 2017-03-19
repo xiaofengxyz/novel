@@ -1,0 +1,116 @@
+<?php
+$varlist = "cfg_webname,cfg_indexname,cfg_description,cfg_keywords,channellist,cfg_templeturl,newartlist,tuijianconten,typeconten,novel_powerby,rementuijian,xinshutuijian,wanbentuijian,dianjibang,tuijianbang,zishubang,typename,typenewarc";
+ConvertCharset($varlist);
+echo"<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n";
+?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+<title><?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说_<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说txt下载_好看的<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说_<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说排行榜_<?php echo $cfg_webname; ?></title>
+<meta name="keywords" content="<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说,<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说txt下载,好看的<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说,<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说排行榜,<?php echo $cfg_webname; ?>" />
+<meta name="description" content="<?php echo $cfg_webname; ?>提供最好看的<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说免费在线阅读和<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说txt下载，好看的<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说推荐，<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说排行榜" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="/css/h_wap.css" media="all" />
+<script type="text/javascript">
+	var _inlineCodes = [];
+    var _inlineRun = function(fn){
+    	_inlineCodes.push(fn);
+    };
+</script></head>
+<body class="index">
+<?php include($cfg_templets_dir."/wap/head.htm"); ?>
+<div class="channel">
+	<?php echo $channellist; ?>
+</div>
+<form name="From" method="post" action="/wap.php?action=search<?php echo $wxuid; ?>" class="search-form">
+	<input type="hidden" name="objectType" value="2" />
+	<table>
+		<tr>
+			<td><input type="text" name="wd" class="text-border vm" value="" /></td>
+			<td width="8"></td>
+			<td width="70"><input type="submit" class="btn btn-auto btn-blue vm" value="搜索" /></td>
+		</tr>
+	</table>
+</form>
+<div class="container">
+	<div class="mod mod-back breadcrumb">
+		<div class="bd">
+			<a href="/" class="home"></a>
+			<span class="divide"></span>
+			<a href="/wap.php?action=list&type=top&id=<?php echo $id.$wxuid; ?>"><?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说</a>
+		</div>
+	</div>
+	<div class="slide-ad"><!--广告--></div>
+	<div class="mod block recommend">
+		<div class="hd">
+			<h4>热门<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说推荐</h4>
+		</div>
+		<div class="bd">
+			<ul class="list">
+				<?php echo $rementuijian; ?>
+			</ul>
+		</div>
+	</div>
+	<div class="slide-ad"><!--广告--></div>
+	<div class="mod block column-list">
+		<div class="hd" style="height: 16px;"><h4 style="float: left;">最新<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说推荐</h4><span style="float: right;font-size: 12px;">[<a href='/wap.php?action=shuku&order=3&tid=<?php echo $id.$wxuid; ?>' >更多···</a>]</span></div>
+		<div class="bd">
+			<ul class="list">
+				<?php echo $xinshutuijian; ?>
+			</ul>
+		</div>
+	</div>
+	<div class="mod block column-list">
+		<div class="hd" style="height: 16px;"><h4 style="float: left;">完本<?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说推荐</h4><span style="float: right;font-size: 12px;">[<a href='/wap.php?action=shuku&over=1&tid=<?php echo $id.$wxuid; ?>' >更多···</a>]</span></div>
+		<div class="bd">
+			<ul class="list">
+				<?php echo $wanbentuijian; ?>
+			</ul>
+		</div>
+	</div>
+	<div class="slide-ad"><!--广告--></div>
+	<div class="mod block rank-switch">
+		<div class="hd tab-switch">
+			<span index="0" class="item active">点击榜</span>
+			<span index="1" class="item ">推荐榜</span>
+			<span index="2" class="item ">字数榜</span>
+		</div>
+		<div class="bd">
+			<ul class="list" >
+				<?php echo $dianjibang; ?>
+			</ul>
+			<ul class="list" style="display:none">
+				<?php echo $tuijianbang; ?>
+			</ul>
+			<ul class="list" style="display:none">
+				<?php echo $zishubang; ?>
+			</ul>
+		</div>
+	</div>
+	<div class="mod block book-all-list">
+		<div class="hd" style="height: 16px;padding: 10px;"><h4><?php echo str_replace("小说","",str_replace("·","",$typename)); ?>小说最近更新列表</h4></div>
+		<div class="bd">
+			<ul>
+			<?php echo $typenewarc; ?>
+			</ul>
+		</div>
+	</div>
+<script>
+	_inlineRun(function(){
+		core.Tabs( $(".rank-switch .item"), $(".rank-switch ul") ) 
+	});
+</script>
+<?php include($cfg_templets_dir."/wap/footer.htm"); ?>
+<!--[if IE]>
+<link href="" rel="stylesheet" type="text/css" />
+<![endif]-->
+<script src="/js/zepto.min.js"></script>
+<script src="/js/mobile.js"></script>
+</body>
+</html>

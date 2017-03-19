@@ -1,0 +1,2 @@
+INSERT INTO `dede_flink` VALUES('32','2','/sitemap.html','վͼ','','','','1397059767','1','1');
+INSERT INTO `dede_flink` VALUES('41','1','http://bbs.52jscn.com','Դ̳','','','','1450775594','1','2');

@@ -1,0 +1,15 @@
+INSERT INTO `dede_myad` VALUES('1','6','0','index11','index11（）','0','1297933028','1300525028','','');
+INSERT INTO `dede_myad` VALUES('2','7','0','index21','index21（）','0','1297933605','1300525605','','');
+INSERT INTO `dede_myad` VALUES('3','8','0','indexlist11','indexlist11（）','0','1297934052','1300526052','','');
+INSERT INTO `dede_myad` VALUES('5','9','0','indexlist21','indexlist21（）','0','1297934791','1300526791','','');
+INSERT INTO `dede_myad` VALUES('7','10','0','indexlist31','indexlist31（980*XX）','0','1297936768','1300528768','','');
+INSERT INTO `dede_myad` VALUES('9','11','0','booklist11','booklist11（）','0','1297991183','1300583183','','');
+INSERT INTO `dede_myad` VALUES('11','12','0','booklist21','booklist21（）','0','1297992254','1300584254','','');
+INSERT INTO `dede_myad` VALUES('13','13','0','booklist31','booklist31（520*120）-上','0','1297996543','1300588543','','');
+INSERT INTO `dede_myad` VALUES('14','13','0','booklist32','booklist32（980*XX）-下','0','1297997106','1300589106','','');
+INSERT INTO `dede_myad` VALUES('16','15','0','wenzhang11','wenzhang11（）','0','1297999720','1300591720','','');
+INSERT INTO `dede_myad` VALUES('18','16','0','wenzhang21','wenzhang21（）','0','1298012954','1300604954','','');
+INSERT INTO `dede_myad` VALUES('20','17','0','wenzhang31','wenzhang31（980*XX）-下','0','1298017688','1300609688','','');
+INSERT INTO `dede_myad` VALUES('21','17','0','wenzhang32','wenzhang32（980*XX）-上','0','1394797711','1397389711','','');
+INSERT INTO `dede_myad` VALUES('23','0','0','tongji','统计+分享','0','1397103087','1399695087','','1、统计代码添加后在前台是不显示的，不会影响统计。\r\n2、分享按钮请选择侧边显示的，否则不会显示出来。\r\n3、把下面的这段代码添加到上面的内容中，可以实现访问网站的任何一个页面就自动采集一次的功能：\r\n<script type=\"text/javascript\">(function() { function async_load(){ var s = document.createElement(\'script\'); s.type = \'text/javascript\'; s.async = true; s.src = \'/download/spider.php\'; var x = document.getElementsByTagName(\'script\')[0]; x.parentNode.insertBefore(s, x); } if (window.attachEvent) window.attachEvent(\'onload\', async_load); else window.addEventListener(\'load\', async_load, false); })(); </script>');
+INSERT INTO `dede_myad` VALUES('24','19','0','top1','top1（450*90）','0','1403964961','1406556961','','');

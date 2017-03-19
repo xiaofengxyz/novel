@@ -1,0 +1,1 @@
+<a href="/txt[field:typedir/].html" title="[field:typename/]" target="_blank">[field:typename/]</a>

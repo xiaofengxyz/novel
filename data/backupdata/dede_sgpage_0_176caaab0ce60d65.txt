@@ -1,0 +1,2 @@
+INSERT INTO `dede_sgpage` VALUES('1','rss','0','rss.xml','','{style}/rss.htm','default','','1388756852','');
+INSERT INTO `dede_sgpage` VALUES('2','ÍøÕ¾µØÍ¼','0','sitemap.xml','','{style}/google_sitemap.htm','default','','1388756948','');

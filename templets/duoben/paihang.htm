@@ -1,0 +1,563 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>{dede:field.seotitle /}_{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/},{dede:global.cfg_webname/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link rel="stylesheet" type="text/css" href="/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/css/body_inner.css" />
+</head><body class="bodyph">
+<!--header开始-->
+{dede:include filename="head.htm"/}
+<!--header结束-->
+<div class="clear"></div>
+<div class="Layout list">
+  <div class="Head">
+    <h2>排行榜</h2>
+    <span>Ranking</span> <span class="j"></span>
+    <div class="morelist">
+      <div class="more">排行榜时时更新，为书友们提供最新的小说排行信息！</div>
+    </div>
+  </div>
+  <div class="Con">
+    <div class="Left">
+      <div class="topList">
+        <div class="tit">
+          <h3>全网小说点击榜</h3>
+          <ul id="tab_box_01">
+            <li onmouseover="Li_Mover(this,'1','zong','tab')">总</li>
+            <li class="Li_Mover" onmouseover="Li_Mover(this,'1','yue','tab')">月</li>
+            <li onmouseover="Li_Mover(this,'1','zhou','tab')">周</li>
+          </ul>
+        </div>
+        <div class="con" id="box_01_zong">
+          <ul>
+		  {dede:php}
+			global $dsql;
+			$n=1;
+			$s="";
+			$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclick,a.booksize,a.tuijian,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid not in(0,45) order by bookclick desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($n==1)
+				{
+					$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,1,\'zong\')">';
+				}
+				else
+				{
+					$s.='<li onmouseover="Li_Mover(this,1,\'zong\')">';
+				}
+				$s.='<dl class="dl_0'.$n.'">
+				<dt><em>'.$row['bookclick'].'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+				<dd>
+				  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+				  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+				  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+				  <p>字数：'.$row["booksize"].'</p>
+				  <p>总点击：'.$row["bookclick"].'</p>
+				  <p>总推荐：'.$row["tuijian"].'</p>
+				  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+				</dd>
+			  </dl>
+			</li>';
+				$n++;
+			}
+			$s.='</ul>
+		  <div class="more">查看更多……</div>
+		</div>
+        <div class="con Li_Mover" id="box_01_yue">
+          <ul>';
+			$n=1;
+			$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclickm,a.tuijianm,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid not in(0,45) order by bookclickm desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($n==1)
+				{
+					$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,1,\'yue\')">';
+				}
+				else
+				{
+					$s.='<li onmouseover="Li_Mover(this,1,\'yue\')">';
+				}
+				$s.='<dl class="dl_0'.$n.'">
+				<dt><em>'.$row['bookclickm'].'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+				<dd>
+				  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+				  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+				  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+				  <p>字数：'.$row["booksize"].'</p>
+				  <p>月点击：'.$row["bookclickm"].'</p>
+				  <p>月推荐：'.$row["tuijianm"].'</p>
+				  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+				</dd>
+			  </dl>
+			</li>';
+				$n++;
+			}
+		  $s.='</ul>
+		  <div class="more">查看更多……</div>
+		</div>
+        <div class="con" id="box_01_zhou">
+          <ul>';
+			$n=1;
+			$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclickw,a.tuijianw,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid not in(0,45) order by bookclickw desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($n==1)
+				{
+					$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,1,\'zhou\')">';
+				}
+				else
+				{
+					$s.='<li onmouseover="Li_Mover(this,1,\'zhou\')">';
+				}
+				$s.='<dl class="dl_0'.$n.'">
+				<dt><em>'.$row['bookclickw'].'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+				<dd>
+				  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+				  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+				  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+				  <p>字数：'.$row["booksize"].'</p>
+				  <p>周点击：'.$row["bookclickw"].'</p>
+				  <p>周推荐：'.$row["tuijianw"].'</p>
+				  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+				</dd>
+			  </dl>
+			</li>';
+				$n++;
+			}
+			$s.='</ul>
+		  <div class="more">查看更多……</div>
+		</div>
+      </div>
+      <div class="topList">
+        <div class="tit">
+          <h3>全网小说推荐榜</h3>
+          <ul id="tab_box_02">
+            <li onmouseover="Li_Mover(this,\'2\',\'zong\',\'tab\')">总</li>
+            <li class="Li_Mover" onmouseover="Li_Mover(this,\'2\',\'yue\',\'tab\')">月</li>
+            <li onmouseover="Li_Mover(this,\'2\',\'zhou\',\'tab\')">周</li>
+          </ul>
+        </div>
+        <div class="con" id="box_02_zong">
+          <ul>';
+			$n=1;
+			$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclick,a.tuijian,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid not in(0,45) order by tuijian desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($n==1)
+				{
+					$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,2,\'zong\')">';
+				}
+				else
+				{
+					$s.='<li onmouseover="Li_Mover(this,2,\'zong\')">';
+				}
+				$s.='<dl class="dl_0'.$n.'">
+				<dt><em>'.$row['tuijian'].'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+				<dd>
+				  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+				  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+				  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+				  <p>字数：'.$row["booksize"].'</p>
+				  <p>总点击：'.$row["bookclick"].'</p>
+				  <p>总推荐：'.$row["tuijian"].'</p>
+				  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+				</dd>
+			  </dl>
+			</li>';
+				$n++;
+			}
+			$s.='</ul>
+		  <div class="more">查看更多……</div>
+		</div>
+        <div class="con Li_Mover" id="box_02_yue">
+          <ul>';
+			$n=1;
+			$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclickm,a.tuijianm,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid not in(0,45) order by tuijianm desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($n==1)
+				{
+					$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,2,\'yue\')">';
+				}
+				else
+				{
+					$s.='<li onmouseover="Li_Mover(this,2,\'yue\')">';
+				}
+				$s.='<dl class="dl_0'.$n.'">
+				<dt><em>'.$row['tuijianm'].'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+				<dd>
+				  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+				  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+				  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+				  <p>字数：'.$row["booksize"].'</p>
+				  <p>月点击：'.$row["bookclickm"].'</p>
+				  <p>月推荐：'.$row["tuijianm"].'</p>
+				  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+				</dd>
+			  </dl>
+			</li>';
+				$n++;
+			}
+		  $s.='</ul>
+		  <div class="more">查看更多……</div>
+		</div>
+        <div class="con" id="box_02_zhou">
+          <ul>';
+			$n=1;
+			$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclickw,a.tuijianw,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid not in(0,45) order by tuijianw desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($n==1)
+				{
+					$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,2,\'zhou\')">';
+				}
+				else
+				{
+					$s.='<li onmouseover="Li_Mover(this,2,\'zhou\')">';
+				}
+				$s.='<dl class="dl_0'.$n.'">
+				<dt><em>'.$row['tuijianw'].'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+				<dd>
+				  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+				  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+				  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+				  <p>字数：'.$row["booksize"].'</p>
+				  <p>周点击：'.$row["bookclickw"].'</p>
+				  <p>周推荐：'.$row["tuijianw"].'</p>
+				  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+				</dd>
+			  </dl>
+			</li>';
+				$n++;
+			}
+		  $s.='</ul>
+		  <div class="more">查看更多……</div>
+		</div>
+      </div>
+	  <div class="topList">
+        <div class="tit">
+          <h3>全网小说字数榜</h3>
+          <ul id="tab_box_03">
+            <li class="Li_Mover" onmouseover="Li_Mover(this,\'3\',\'zong\',\'tab\')">总</li>
+          </ul>
+        </div>
+        <div class="con Li_Mover" id="box_03_zong">
+          <ul>';
+			$n=1;
+			$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclick,a.tuijian,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid not in(0,45) order by booksize desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				if($n==1)
+				{
+					$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,3,\'zong\')">';
+				}
+				else
+				{
+					$s.='<li onmouseover="Li_Mover(this,3,\'zong\')">';
+				}
+				$s.='<dl class="dl_0'.$n.'">
+				<dt><em>'.$row['booksize'].'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+				<dd>
+				  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+				  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+				  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+				  <p>字数：'.$row["booksize"].'</p>
+				  <p>点击：'.$row["bookclick"].'</p>
+				  <p>推荐：'.$row["tuijian"].'</p>
+				  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+				</dd>
+			  </dl>
+			</li>';
+				$n++;
+			}
+			$s.='</ul>
+		  <div class="more">查看更多……</div>
+		</div>
+      </div>';
+		$query = "SELECT * FROM dede_arctype WHERE reid=0 and id<>45 order by sortrank limit 0,6";
+		$dsql->SetQuery($query);
+		$dsql->Execute();
+		$a=4;
+		while($row=$dsql->GetArray()){
+			$reid[$a]=$row['id'];
+			$retypename[$a]=$row['typename'];
+			$a++;
+		}
+		for($m=4;$m<$a;$m++)
+		{
+			$s.='<div class="topList">
+			<div class="tit">
+			  <h3>'.$retypename[$m].'小说排行榜</h3>
+			  <ul id="tab_box_0'.$m.'">
+				<li onmouseover="Li_Mover(this,\''.$m.'\',\'zong\',\'tab\')">总</li>
+				<li class="Li_Mover" onmouseover="Li_Mover(this,\''.$m.'\',\'yue\',\'tab\')">月</li>
+				<li onmouseover="Li_Mover(this,\''.$m.'\',\'zhou\',\'tab\')">周</li>
+			  </ul>
+			</div>
+			<div class="con" id="box_0'.$m.'_zong">
+			  <ul>';
+				$n=1;
+				$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclick,a.tuijian,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid=".$reid[$m]." order by a.tuijian+a.bookclick desc limit 0,10";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+					$paixu=$row["bookclick"]+$row["tuijian"];
+					if($n==1)
+					{
+						$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,'.$m.',\'zong\')">';
+					}
+					else
+					{
+						$s.='<li onmouseover="Li_Mover(this,'.$m.',\'zong\')">';
+					}
+					$s.='<dl class="dl_0'.$n.'">
+					<dt><em>'.$paixu.'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+					<dd>
+					  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+					  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+					  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+					  <p>字数：'.$row["booksize"].'</p>
+					  <p>总点击：'.$row["bookclick"].'</p>
+					  <p>总推荐：'.$row["tuijian"].'</p>
+					  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+					</dd>
+				  </dl>
+				</li>';
+					$n++;
+				}
+				$s.='</ul><div class="more">查看更多……</div>
+			</div>
+			<div class="con Li_Mover" id="box_0'.$m.'_yue">
+			  <ul>';
+				$n=1;
+				$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclickm,a.tuijianm,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid=".$reid[$m]." order by a.tuijianm+a.bookclickm desc limit 0,10";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+					$paixu=$row["bookclickm"]+$row["tuijianm"];
+					if($n==1)
+					{
+						$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,'.$m.',\'yue\')">';
+					}
+					else
+					{
+						$s.='<li onmouseover="Li_Mover(this,'.$m.',\'yue\')">';
+					}
+					$s.='<dl class="dl_0'.$n.'">
+					<dt><em>'.$paixu.'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+					<dd>
+					  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+					  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+					  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+					  <p>字数：'.$row["booksize"].'</p>
+					  <p>月点击：'.$row["bookclickm"].'</p>
+					  <p>月推荐：'.$row["tuijianm"].'</p>
+					  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+					</dd>
+				  </dl>
+				</li>';
+					$n++;
+				}
+			  $s.='</ul><div class="more">查看更多……</div>
+			</div>
+			<div class="con" id="box_0'.$m.'_zhou">
+			  <ul>';
+				$n=1;
+				$query = "SELECT a.typeimg,a.typename,a.typedir,a.bookclickw,a.tuijianw,a.booksize,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid=".$reid[$m]." order by a.tuijianw+a.bookclickw desc limit 0,10";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+					$paixu=$row["bookclickw"]+$row["tuijianw"];
+					if($n==1)
+					{
+						$s.='<li class="Li_Mover" onmouseover="Li_Mover(this,'.$m.',\'zhou\')">';
+					}
+					else
+					{
+						$s.='<li onmouseover="Li_Mover(this,'.$m.',\'zhou\')">';
+					}
+					$s.='<dl class="dl_0'.$n.'">
+					<dt><em>'.$paixu.'</em><a target="_blank" href="'.$row['typedir'].'/">'.$row['typename'].'</a></dt>
+					<dd>
+					  <div class="img"><a target="_blank" href="'.$row['typedir'].'/"><img src="'.$row['typeimg'].'"></a></div>
+					  <strong>类型：[<A href="'.$row['retypedir'].'.html" target="_blank" title="'.str_replace("·","",$row['retypename']).'小说" >'.str_replace("·","",$row['retypename']).'</A>]</strong>
+					  <p>作者：<span><a href="'.$row["zuozhedir"].'.html" target="_blank" title="'.$row["zuozhe"].'作品">'.$row["zuozhe"].'</a></span></p>
+					  <p>字数：'.$row["booksize"].'</p>
+					  <p>周点击：'.$row["bookclickw"].'</p>
+					  <p>周推荐：'.$row["tuijianw"].'</p>
+					  <p class="sc">[<a target="_blank" href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载">'.$row['typename'].'txt下载</a>]</p>
+					</dd>
+				  </dl>
+				</li>';
+					$n++;
+				}
+		$s.='</ul><div class="more">查看更多……</div>
+		</div>
+      </div>';
+		}
+	  echo $s;
+	  {/dede:php}
+     </div>
+    <div class="Right">
+		<div class="r_box cn">
+			<div class="head"><h2>小说作家推荐</h2></div>
+			<ul>
+				{dede:php}
+				global $dsql ;
+				$dsql->safeCheck = false;
+				$n=1;
+				$s="";
+				$query = "SELECT COUNT(a.id) AS ano,a.zuozhe AS zuozhe,b.typeimg,b.description,b.typedir,b.tuijian,SUM(a.bookclick) AS bookclick,SUM(a.booksize) AS booksize,SUM(a.tuijian) AS booktuijian FROM dede_arctype b JOIN (SELECT ROUND(RAND() * ((SELECT MAX(id) FROM `dede_arctype`)-(SELECT MIN(id) FROM `dede_arctype`))+(SELECT MIN(id) FROM `dede_arctype`)) AS id) AS t2 LEFT JOIN dede_arctype a ON(a.zuozhe=b.typename) WHERE b.reid=45 AND b.id>t2.id GROUP BY b.typename order by booktuijian desc limit 10";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+					if($n==1)
+					{
+						$zuozhe=$row['zuozhe'];
+						$newbook = $dsql->GetOne("SELECT typename,typedir FROM dede_arctype where zuozhe='$zuozhe' order by overdate");
+						$newbookname = $newbook['typename'];
+						$newbooktypeidr = $newbook['typedir'];
+						$s.= "<li><a href='".$row['typedir'].".html' title='".$row['zuozhe']."作品集' target='_blank'>".$row['zuozhe']."</a><span>".$row['ano']."/".$row['booksize']."</span></li><li class='first_con'><div class='pic'><a href='".$row['typedir'].".html' title='".$row['zuozhe']."作品集' target='_blank'><img class='lazy' src='".$row['typeimg']."' alt='".$row['zuozhe']."' /></a></div>
+						<div class='a_l'>
+						  <div><span>作品数:</span>".$row['ano']."</div>
+						  <div><span>总字数:</span>".$row['booksize']."</div>
+						  <div><span>总点击:</span>".$row['bookclick']."</div>
+						  <div><span>作家推荐:</span>".$row['tuijian']."</div>
+						  <div><span>作品推荐:</span>".$row['booktuijian']."</div>
+						  <div><span>新书:</span><a href='".$newbooktypeidr."/' title='".$newbookname."' target='_blank'>".$newbookname."</a></div>
+						</div>
+					</li>";
+					}
+					else
+					{
+						$s.= "<li><a href='".$row['typedir'].".html' title='".$row['zuozhe']."作品集' target='_blank'>".$row['zuozhe']."</a><span>".$row['ano']."/".$row['booksize']."</span></li>";
+					}
+					$n++;
+				}
+		
+			$s.='</ul>
+		</div><div class="r_box cmztj cn">
+        <div class="head"><h2>热门新书推荐</h2></div>
+        <ul>';
+				$n=1;
+				$query = "SELECT a.typeimg,a.typename,a.description,a.typedir,a.bookclick,a.tuijian,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid<>45 and a.reid<>0 and a.booksize<300000 order by a.bookclick+a.tuijian desc limit 0,10";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+					$bt=$row['bookclick']+$row['tuijian'];
+					if($n==1)
+					{
+						$s.="<li><a href='".$row['typedir']."/' title='".$row['typename']."' target='_blank'>".$row['typename']."</a><span>".$bt."</span></li><li class='first_con'><div class='pic'><a href='".$row['typedir']."/' title='".$row['typename']."' target='_blank'><img class='lazy' src='".$row['typeimg']."' alt='".$row['typename']."' /></a></div>
+						<div class='a_l'>
+						  <div><span>作者:</span><a href='".$row['zuozhedir'].".html' title='".$row['zuozhe']."小说作品' target='_blank'>".$row['zuozhe']."</a></div>
+						  <div><span>类型:</span><a href='".$row['retypedir'].".html' title='".$row['retypename']."小说' target='_blank'>".$row['retypename']."</a></div>
+						  <div><span>点/推:</span>".$row['bookclick']."/".$row['tuijian']."</div>
+						</div>
+					<div class='info'><p><a href='".$row['typedir']."/' target='_blank'>简介：".cn_substr(html2text($row['description']),50)."……</a></p>
+					</div>
+				</li>";
+					}
+					else
+					{
+						$s.="<li><a href='".$row['typedir']."/' title='".$row['retypename']."小说-".$row['typename']."，作者：".$row['zuozhe']."' target='_blank'>".$row['typename']."</a><span>".$bt."</span></li>";
+					}
+					$n++;
+				}
+           $s.='</ul>
+      </div>
+      <div class="r_box rmwbtj cn">
+        <div class="head">
+          <h2>热门完本推荐</h2>
+        </div>
+        <ul>';
+				$n=1;
+				$query = "SELECT a.typeimg,a.typename,a.description,a.typedir,a.bookclick,a.tuijian,a.zuozhe,b.typedir as zuozhedir,c.typename as retypename,c.typedir as retypedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) left join dede_arctype c on(c.id=a.reid) WHERE a.reid not in(0,45) and a.overdate<>'0' order by a.bookclick+a.tuijian desc limit 0,10";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+					$bt=$row['bookclick']+$row['tuijian'];
+					if($n==1)
+					{
+						$s.="<li><a href='".$row['typedir']."/' title='".$row['typename']."' target='_blank'>".$row['typename']."</a><span>".$bt."</span></li><li class='first_con'><div class='pic'><a href='".$row['typedir']."/' title='".$row['typename']."' target='_blank'><img class='lazy' src='".$row['typeimg']."' alt='".$row['typename']."' /></a></div>
+						<div class='a_l'>
+						  <div><span>作者:</span><a href='".$row['zuozhedir'].".html' title='".$row['zuozhe']."小说作品' target='_blank'>".$row['zuozhe']."</a></div>
+						  <div><span>类型:</span><a href='".$row['retypedir'].".html' title='".$row['retypename']."小说' target='_blank'>".$row['retypename']."</a></div>
+						  <div><span>点/推:</span>".$row['bookclick']."/".$row['tuijian']."</div>
+						</div>
+					<div class='info'><p><a href='".$row['typedir']."/' target='_blank'>简介：".cn_substr(html2text($row['description']),50)."……</a></p>
+					</div>
+				</li>";
+					}
+					else
+					{
+						$s.="<li><a href='".$row['typedir']."/' title='".$row['retypename']."小说-".$row['typename']."，作者：".$row['zuozhe']."' target='_blank'>".$row['typename']."</a><span>".$bt."</span></li>";
+					}
+					$n++;
+				}
+				echo $s;
+				{/dede:php}
+		</ul>
+      </div>
+      <div class="r_box ad ad200">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<!--footer开始-->
+{dede:include filename="footer.htm"/}
+<div style="display:none;">
+  <script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.lazyload.min.js"></script>
+  <script type="text/javascript">
+  var cmsUrl="/";
+  $("img.lazy").show().lazyload({placeholder:"/images/loading.gif",loading:true,threshold:200,failure_limit:10,skip_invisible:false,effect:"fadeIn"});
+  function btnin(){$("#info").css("display","block")};function btnout(){$("#info").css("display","none")};
+  window.onscroll=function(){var top = (document.documentElement.scrollTop || document.body.scrollTop);if (top>170){$(".topbox").addClass("topFLOAT");$(".UD").fadeIn();}else{$(".topbox").removeClass("topFLOAT");$(".UD").fadeOut();}};
+  $(".UD").click(function(){$("html,body").animate({scrollTop:0});});
+  $(".fli").hover(function(){$(this).addClass("on");},function(){$(this).removeClass("on");});
+  function $ID(id){return document.getElementById(id);}
+  function Li_Mover(obj,num,num2,tab){	  
+	  num2?num2='_'+num2:num2='';
+	  if(tab){
+		  tab='tab_';
+		  $ID('box_0'+num+'_zong').className=$ID('box_0'+num+'_yue').className=$ID('box_0'+num+'_zhou').className='con';
+		  $ID('box_0'+num+num2).className='con Li_Mover';
+		  num2='';
+	  }else{
+		  tab='';
+	  }
+	  var liSTR=document.getElementById(tab+"box_0"+num+num2).getElementsByTagName("li");
+	  for(i=0;i<liSTR.length;i++){
+		  liSTR.item(i).className="";
+	  }
+	  obj.className="Li_Mover";
+  }
+  function addBookmark(title,url) {
+  if(!title){title =document.title};
+  if(!url){url=window.location.href}
+  try{  
+		  window.external.AddFavorite(url,title);  
+	  }catch(e){  
+		  try{  
+			  window.sidebar.addPanel(title,url,"");  
+		  }catch(e){  
+			  alert("360、火狐等浏览器不支持自动添加收藏夹标签。关闭本对话框后，请您使用快捷键 Ctrl+D 进行添加。");  
+		  }
+	}
+}
+  </script>
+  <script type="text/javascript" src="/js/xmlJS.js"></script>
+  {dede:myad name='tongji'/}
+</div>
+</body></html>

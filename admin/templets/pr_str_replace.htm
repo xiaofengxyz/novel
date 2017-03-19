@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>查找词替换</title>
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table width="98%" border="0" cellpadding="1" cellspacing="1" align="center" class="tbtitle" style="	background:#E2F5BC;">
+  <form name="form2" action="pr_str_replace.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="dopost" value="batch_save">
+    <tr bgcolor="#F8FCF1">
+      <td height="24" colspan="4" valign="top" bgcolor="#FDFEE9"><strong>批量导入同义词：</strong><input name="batch" type="file" id="batch" size="45" />
+      <strong>同义词分隔符：</strong><input name="separator" type="text" id="separator" value="→" class='pubinputs' style="width:30px;" />
+      <input name="imageField"  type="submit" class="np coolbg" value="确定" />
+      </td>
+    </tr>
+  </form>
+  <form name="form1" action="pr_str_replace.php" method="post">
+    <input type="hidden" name="dopost" value="save">
+    <tr bgcolor="#F8FCF1">
+      <td height="24" colspan="4" valign="top" bgcolor="#EDF9D5"><strong>新增一组词：</strong></td>
+    </tr>
+    <tr height="24" align="center" bgcolor="#FFFFFF">
+      <td valign="top">
+      	<input name="find_new" type="text" id="find_new" class='pubinputs' style="width:90%" />
+      </td>
+      <td valign="top">
+      	<input name="replace_new" type="text" id="replace_new" class='pubinputs' style="width:80%" />
+      </td>
+      <td valign="top">
+      	<input name="interconvert_new" type="checkbox" id="interconvert_new"  value="1" class='np' />
+        互换
+      </td>
+      <td align="center" bgcolor="#FFFFFF">
+	  <input name="check_new" type="checkbox"  id="check_new" value="1" checked='1' class='np' />
+        新增 </td>
+    </tr>
+    <tr>
+      <td height="28" colspan="4" bgcolor="#EDF9D5" background="images/tbg.gif"> &nbsp;<strong>已添加的替换词： </strong></td>
+    </tr>
+    <tr bgcolor="#FDFEE9">
+      <td width="33%" height="24" align="center" valign="top">查找词</td>
+      <td width="33%" align="center" valign="top">替换词</td>
+      <td width="17%" align="center">互换</td>
+      <td width="17%" align="center">状态</td>
+    </tr>
+    <?php
+	  $k=0;
+	?>
+    {dede:datalist}
+    <?php $k++;?>
+    <input type="hidden" name="ID_<?php echo $k?>" value="{dede:field.id/}">
+    <tr align="center" bgcolor="#FFFFFF">
+      <td height="24" valign="top">
+      	<input name="find_<?php echo $k?>" value="{dede:field.find function='htmlout(@me)'/}" type="text" id="find_<?php echo $k?>" class='pubinputs' style="width:90%" />
+      </td>
+      <td height="24" valign="top">
+      	<input name="replace_<?php echo $k?>" value="{dede:field.replace function='htmlout(@me)'/}" type="text" id="replace_<?php echo $k?>" class='pubinputs' style="width:80%" />
+      </td>
+      <td>
+         <input name="interconvert_<?php echo $k?>" type="checkbox" id="interconvert_<?php echo $k?>"  value="{dede:field.interconvert/}" 
+          {dede:field.interconvert function='huihuan(@me)' /}  class='np' />
+           互换
+	   </td>
+      <td>
+	  <input name="check_<?php echo $k?>" type="checkbox" id="check_<?php echo $k?>"  value="1" checked='1' class='np' />
+        保留
+	   </td>
+    </tr>
+    {/dede:datalist}
+
+    <input type="hidden" name="idend" value="<?php echo $k?>">
+
+    <tr>
+      <td height="34" colspan="4" align="center" bgcolor="#F8FCF1">
+      	<input name="imageField"  type="submit" class="np coolbg" value="确定" />
+      </td>
+    </tr>
+  </form>
+    <tr> 
+    <td height="36" colspan="8" bgcolor="#FCFDF7" align="center">
+    {dede:pagelist listsize=5/}
+    </td>
+  </tr>
+</table>
+</body>
+</html>

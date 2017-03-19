@@ -1,0 +1,86 @@
+
+.left.fyb{float:left;width:200px;height:auto;overflow:hidden}
+.left.fyb .head{width:100%;height:38px;background:url('../images/allimg_index.png') no-repeat 0px 0px;overflow:hidden}
+.left.fyb h2{font-size:0px;line-height:0px}
+.left.fyb .con{width:198px;height:auto;border:1px solid #ccc6c3;border-top:none;border-bottom:none;background-color:#f3e4cd;overflow:hidden}
+.left.fyb ul{float:left;width:188px;padding:0px 5px;overflow:hidden}
+.left.fyb li{float:left;width:188px;height:26px;line-height:26px;_line-height:28px;border-bottom:1px solid #d4d4d4;overflow:hidden}
+.left.fyb li div{float:left;height:26px;overflow:hidden}
+.left.fyb .div_c{width:60px}
+.left.fyb .div_t{width:123px;padding-left:5px}
+.left.fyb a{display:inline-block;height:26px}
+.left.fyb a.c{color:#7d7d7d}
+.left.fyb a:hover{color:#B01F2E}
+.left.fyb .bot{width:100%;height:12px;background:url('../images/allimg_index.png') no-repeat 0px -38px;overflow:hidden}
+.left.fyb .div_t span{color:#B01F2E}
+
+.lm_li{float:left;width:228px;margin-left:26px;overflow:hidden}
+.lm_li a{display:inline-block}
+.lm_li h2{width:200px;height:27px;border-bottom:1px solid #ede7e4;overflow:hidden;font-size:18px;}
+.lm_li h2 a{width:80px;height:100%;overflow:hidden;line-height:20px}
+.lm_li h2 a:hover{text-decoration:none;color:#B01F2E}
+.lm_li ul{height:115px;padding-top:8px;_padding-top:9px;overflow:hidden}
+.lm_li li{height:24px;line-height:24px;overflow:hidden}
+.lm_li li span{color:#B01F2E;padding-right:5px}
+.lm_li li span a{color:#B01F2E;}
+
+.right.zxgx{float:right;width:769px;height:455px;padding-left:10px;overflow:hidden}
+.right.zxgx .head{padding-left:10px;height:36px;border:1px solid #e3dbd7;line-height:32px;background:#f8f4f2;overflow:hidden}
+.right.zxgx .con{width:767px;height:408px;border:1px solid #e3dbd7;border-top:none;background-color:#f8f4f2;overflow:hidden}
+.right.zxgx .u{width:727px;height:198px;padding:20px;border-bottom:1px solid #afafaf;overflow:hidden}
+.right.zxgx .u div{float:left;overflow:hidden}
+.right.zxgx .pic{width:142px;height:178px;padding: 20px 0px 0px 13px;background:url('../images/allimg_index.png') no-repeat 0px -50px}
+.right.zxgx .pic img{width:117px;height:156px}
+.right.zxgx .title{width:559px;height:auto;padding-left:13px}
+.right.zxgx .title h2{display:inline;height:36px;line-height:40px;_line-height:42px;font-size:18px}
+.right.zxgx .title span{display:inline;padding-left:13px;padding-left:7px\0;color:#454545}
+.right.zxgx .title p{_margin-top:-2px}
+.right.zxgx .title p a{color:#454545;text-decoration:underline}
+.right.zxgx .title p a:hover{color:#B01F2E}
+.right.zxgx .info{width:559px;height:152px;padding-left:13px}
+.right.zxgx .info a{line-height:21px;color:#6c6c6c}
+.right.zxgx .d{position:relative;width:767px;height:168px}
+.n_p_box{position:absolute;top:-25px;_top:-24px;right:0px;overflow:hidden}
+.n_p_box div{float:left;width:20px;height:30px;_margin-top:-1px;overflow:hidden;background:url('../images/allimg_index.png') no-repeat -295px 12px}
+.n_p_box .n{background:url('../images/allimg_index.png') no-repeat -305px 12px}
+.n_p_box input{float:left;width:50px;height:30px;text-align:center;cursor:pointer;border:none;background-color:transparent;overflow:hidden}
+.n_p_box input.active{font-weight:bold;background:url('../images/allimg_index.png') no-repeat -231px 24px;_background-position:-231px 23px}
+.right.zxgx .d .con_box{position:absolute;width:765px;height:128px;top:20px;left:3px;overflow:hidden}
+.right.zxgx .d .box{position:absolute;top:0px;left:0px;width:767px;height:128px;overflow:hidden}
+.right.zxgx .d .box .lm_li{border-right:1px solid #e3dbd7}
+
+.Layout.bw .Head{background-position:10px -112px}
+
+.Layout.jp .Head{background-position:10px -146px}
+.Con.jp .l_con{float:left;width:748px;padding:20px 8px 0;overflow:hidden}
+.Con.jp .l_con .pic,.Con.jp .lm{float:left;width:750px;height:auto;overflow:hidden}
+.Con.jp .l_con .pic li{float:left;width:125px;height:auto;padding-top:3px;background:url('../images/allimg_basic.png') no-repeat -202px 0px;overflow:hidden}
+.Con.jp .l_con .pic li a{float:left;overflow:hidden}
+.Con.jp .l_con .pic li a.p{width:84px;height:112px;margin-left:21px}
+.Con.jp .l_con .pic img{width:84px;height:112px}
+.Con.jp .l_con .pic a.t{width:125px;height:40px;margin-left:-1px\0;line-height:40px;_line-height:42px;text-align:center;color:#8a632b}
+.Con.jp .l_con .pic a.t:hover{color:#B01F2E}
+.Con.jp .lm{padding-left:6px}
+.Con.jp .lm_li{margin:10px 0px 20px 14px;}
+.Con.jp .wei_infobox{width:748px;margin-top:10px;background-position:-83px 4px}
+.Con.jp .wei_infobox ul{left:36px;width:712px}
+
+.Layout.ph .Head{background-position:10px -180px}
+.Con.ph .p_box{float:left;width:326px;height:auto;overflow:hidden}
+.Con.ph .p_box.pl{width:325px}
+.Con.ph .head{float:left;width:326px;height:37px;background-color:#e8e8e8;border-bottom:1px solid #d7d7d7;overflow:hidden}
+.Con.ph .p_box.pl .head{width:325px}
+.Con.ph .head h2{text-align: center;float:left;width:325px;height:37px;font-size:15px;line-height:37px;border-right:1px solid #cdcac9;overflow:hidden}
+.Con.ph .head a{float:left;width:46px;height:27px;margin:5px 0px 0px 143px;boverflow:hidden}
+.Con.ph .p_box .ul_h{float:left;width:325px;height:26px;line-height:26px;_line-height:28px;padding-top:5px;border-right:1px solid #dedddd;overflow:hidden}
+.Con.ph .p_box .ul_h span{float:left;text-align:right;overflow:hidden}
+.Con.ph .p_box .ul_h span.p{width:42px}
+.Con.ph .p_box .ul_h span.s{width:100px;background:none}
+.Con.ph .p_box .ul_h span.d{width:170px}
+.Con.ph .p_box ul{float:left;width:325px;height:auto;padding-bottom:20px;border-right:1px solid #dedddd;background:url('../images/allimg_basic.png') no-repeat -330px 4px;overflow:hidden}
+.Con.ph .p_box li{float:left;width:265px;height:25px;line-height:26px;_line-height:28px;padding:0px 13px 0px 47px;border-bottom:1px solid #ececec;overflow:hidden}
+.Con.ph .p_box li a{color:#025B81;font-size:14px;overflow:hidden}
+.Con.ph .p_box li .r{color:#999;font-size:12px;}
+.Con.ph .p_box li a:hover{color:#B01F2E}
+.Con.ph .p_box li span{float:right;height:25px;line-height:26px;color:#b01f2e;overflow:hidden}
+.Con.ph .p_box li em{float:left;height:25px;line-height:26px;font-style:normal;overflow:hidden}

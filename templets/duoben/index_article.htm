@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>{dede:field.seotitle /}_{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/},{dede:global.cfg_webname/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<meta http-equiv="mobile-agent" content="format=xhtml; url={dede:global.cfg_wapurl/}{dede:field name='typedir'/}.html"/>
+<link rel="stylesheet" type="text/css" href="/css/basic.css" />
+<link rel="stylesheet" type="text/css" href="/css/body_inner.css" />
+</head><body>
+<!--header开始-->
+{dede:include filename="head.htm"/}
+<!--header结束--> 
+
+<div class="clear"></div>
+<!--body开始-->
+<div class="Layout local">当前位置：<a href="{dede:global.cfg_cmsurl/}/" title="{dede:global.cfg_webname/}">{dede:global.cfg_webname/}</a> > <a href="{dede:field name='typedir'/}.html" title="{dede:field name='typename' function='str_replace("·","",@me)'/}小说">{dede:field name='typename' function='str_replace("·","",@me)'/}小说</a></div>
+<div class="Layout no_h">
+  <div class="Con lm_new">
+    <div class="Left">
+      <div class="h_pic_box">
+		<div class="pic" id="h_pic">
+			{dede:field.typeid runphp='yes'"}
+			global $dsql;
+			$row = $dsql->GetOne("SELECT a.lefttui FROM dede_arctype a WHERE a.id=@me");
+			$lefttui=trim(str_replace('，',',',$row['lefttui']));
+			$andsql=($lefttui=='0' || $lefttui=='') ? " order by id desc":" and a.id in($lefttui)";
+			$query = "SELECT a.id,a.typename,a.typedir,a.zuozhe,a.typeimg,a.description FROM dede_arctype a WHERE a.reid=@me".$andsql." limit 0,4";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			$s1="";
+			$s2='</div><div class="btn" id="h_btn">';
+			$s3='</div><div class="info" id="h_info">';
+			$n=0;
+			while($row=$dsql->GetArray()){
+			$s1.='<div id="pic'.$n.'" onmouseout="mmplay()" onmouseover="mmstop()"><a href="'.$row['typedir'].'/" title="'.$row['typename'].'" target="_blank"><img class="lazy" src="/images/blank.gif" data-original="'.$row['typeimg'].'" alt="'.$row['typename'].'" width="210" height="280" /></a><span><a href="'.$row['typedir'].'/" title="'.$row['typename'].'-'.$row['zuozhe'].'作品" target="_blank">'.$row['typename'].'</a></span></div>';
+			$s2.='<a href="'.$row['typedir'].'/" title="'.$row['typename'].'-'.$row['zuozhe'].'作品" target="_blank" id="tabpic'.$n.'" onmouseout="showpic('.$n.')" onmouseover="mmstop()"><img class="lazy" src="/images/blank.gif" data-original="'.$row['typeimg'].'" alt="'.$row['typename'].'" /></a>';
+			$s3.='<div id="word'.$n.'" onmouseout="mmplay()" onmouseover="mmstop()">'.cn_substr(html2text($row['description']),76).'…<span><a href="'.$row['typedir'].'/" target="_blank">[点击阅读]</a></span></div>';
+			$n++;
+			}
+			@me=$s1.$s2.$s3;
+			{/dede:field.typeid}
+        </div>
+      </div>
+      <script type="text/javascript">
+	  document.getElementById("tabpic0").className="active";
+	  document.getElementById("pic0").style.display="block";
+	  var cateimgs=document.getElementById("h_pic").getElementsByTagName("div");
+      var a=0;
+      var b=cateimgs.length;
+      var time=3000;
+      function showpic(id)
+      {
+          a=id;
+          clearTimeout(mytime);
+          for (i=0;i<b;i++)
+          {
+              document.getElementById("tabpic"+i).className="";
+              document.getElementById("pic"+i).style.display="none";
+              document.getElementById("word"+i).style.display="none";
+          }
+          document.getElementById("tabpic"+id).className="active";
+          document.getElementById("pic"+id).style.display="block";
+          document.getElementById("word"+id).style.display="block";
+          mytime=setTimeout("showpic("+(id==(b-1)? 0:id+1)+")", time);
+      }
+      mytime=setTimeout("showpic(1)", time);
+      function mmstop(){clearTimeout(mytime);}
+      function mmplay(){mytime=setTimeout("showpic("+a+")", time);}
+      </script>
+      <div class="new_box">
+        <div class="u">
+          <div class="head">
+            <h2>最新{dede:field name='typename' function='str_replace("·","",@me)'/}小说</h2>
+            <span class="j"></span> </div>
+          <div class="con">
+			{dede:field.typeid runphp='yes'"}
+			global $dsql;
+			$row = $dsql->GetOne("SELECT a.typenewbook FROM dede_arctype a WHERE a.id=@me");
+			$typenewbook=trim(str_replace('，',',',$row['typenewbook']));
+			$andsql=($typenewbook=='0' || $typenewbook=='') ? " order by id desc":" and a.id in($typenewbook) order by id desc";
+			
+			$row = $dsql->GetOne("SELECT a.id,a.typename,a.typedir,a.zuozhe,a.description,b.typedir as zuozhedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) WHERE a.reid=@me".$andsql);
+			@me='<h2><a href="'.$row['typedir'].'/" title="'.$row['typename'].'" target="_blank">'.$row['typename'].'</a><span> 作者：<a href="'.$row['zuozhedir'].'.html" target="_blank" title="'.$row['zuozhe'].'作品">'.$row['zuozhe'].'</a></span></h2>
+			<p>'.$row['description'].'……</p>';
+			{/dede:field.typeid}
+          </div>
+        </div>
+        <div class="d">
+          <div class="head">
+            <h2>精品{dede:field name='typename' function='str_replace("·","",@me)'/}小说推荐</h2>
+            <span class="j"></span> </div>
+          <div class="con">
+            <ul>
+				{dede:field.typeid runphp='yes'"}
+				global $dsql;
+				$row = $dsql->GetOne("SELECT a.topnews FROM dede_arctype a WHERE a.id=@me");
+				$topnews=trim(str_replace('，',',',$row['topnews']));
+				$andsql=($topnews=='0' || $topnews=='') ? " order by id desc":" and a.id in($topnews)";
+				$query = "SELECT a.id,a.typename,a.typedir,a.zuozhe,b.typedir as zuozhedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) WHERE a.reid=@me".$andsql." limit 0,10";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				$s1="";
+				while($row=$dsql->GetArray()){
+					$s1.='<li>·[<a href="'.$row['zuozhedir'].'.html" target="_blank" title="'.$row['zuozhe'].'作品"><span>'.$row['zuozhe'].'</span></a>]<a href="'.$row['typedir'].'/" title="'.$row['typename'].'" target="_blank">'.$row['typename'].'</a></li>';
+				}
+				@me=$s1;
+				{/dede:field.typeid}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="Right">
+      <div class="r_box tab">
+        <div class="head"> <a class="l active" showBOX="BOX1">月推荐榜</a> <a class="r" showBOX="BOX2">月排行榜</a> </div>
+        <div class="box BOX1" style="display:block;">
+			<ul>
+				{dede:field.typeid runphp='yes'"}
+				global $dsql ;
+				$n=1;
+				$reid=@me;
+				$content="";
+				$query = "SELECT a.typeimg,a.typename,a.description,a.typedir,a.tuijianm,a.zuozhe,b.typedir as zuozhedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) WHERE a.reid=$reid order by tuijianm desc limit 0,5";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+				$counta=$row['tuijianm'];
+					if($n==1)
+					{
+						$content.="<li><a href='".$row['typedir']."/' title='".$row['typename']."-".$row['zuozhe']."作品' target='_blank'>".$row['typename']."</a><span>".$counta."</span></li><li class='first_con'><div class='pic'><a href='".$row['typedir']."/' title='".$row['typename']."' target='_blank'><img class='lazy' src='".$row['typeimg']."' alt='".$row['typename']."' /></a></div><div class='a_l'><div class='a'><span>作者:</span><a href='".$row['zuozhedir'].".html' target='_blank' title='".$row['zuozhe']."作品'>".$row['zuozhe']."</a></div><div class='l'><span>下载:</span><a href='/txt".$row['typedir'].".html' target='_blank' title='".$row['typename']."txt下载'>txt下载</a></div></div><div class='info'><p><a href='".$row['typedir']."/' target='_blank'>简介：".cn_substr(html2text($row['description']),50)."……</a></p></div></li>";
+					}
+					else
+					{
+						$content.="<li><a href='".$row['typedir']."/' title='".$row['typename']."-".$row['zuozhe']."作品' target='_blank'>".$row['typename']."</a><span>".$counta."</span></li>";
+					}
+					$n++;
+				}				
+			$content.='</ul>
+        </div>
+        <div class="box BOX2" style="display:none;">
+			<ul>';
+				$n=1;
+				$query = "SELECT a.typeimg,a.typename,a.description,a.typedir,a.bookclickm,a.zuozhe,b.typedir as zuozhedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) WHERE a.reid=$reid order by bookclickm desc limit 0,5";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+				$counta=$row['bookclickm'];
+					if($n==1)
+					{
+						$content.="<li><a href='".$row['typedir']."/' title='".$row['typename']."-".$row['zuozhe']."作品' target='_blank'>".$row['typename']."</a><span>".$counta."</span></li><li class='first_con'><div class='pic'><a href='".$row['typedir']."/' title='".$row['typename']."' target='_blank'><img class='lazy' src='".$row['typeimg']."' alt='".$row['typename']."' /></a></div><div class='a_l'><div class='a'><span>作者:</span><a href='".$row['zuozhedir'].".html' target='_blank' title='".$row['zuozhe']."作品'>".$row['zuozhe']."</a></div><div class='l'><span>下载:</span><a href='/txt".$row['typedir'].".html' target='_blank' title='".$row['typename']."txt下载'>txt下载</a></div></div><div class='info'><p><a href='".$row['typedir']."/' target='_blank'>简介：".cn_substr(html2text($row['description']),50)."……</a></p></div></li>";
+					}
+					else
+					{
+						$content.="<li><a href='".$row['typedir']."/' title='".$row['typename']."-".$row['zuozhe']."作品' target='_blank'>".$row['typename']."</a><span>".$counta."</span></li>";
+					}
+					$n++;
+				}
+				@me=$content;
+				{/dede:field.typeid}
+			</ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<div align="center"><!--AD-->{dede:myad name='indexlist31'/}</div>
+<div class="Layout m_list">
+  <div class="Head">
+    <h2>更新列表</h2>
+    <span>New List</span> <span class="j"></span>
+	<div class="morelist">
+      <div class="more"><a href="{dede:field name='typedir'/}/shuku.html" style="font-weight: 800; text-decoration:underline" title="查看更多{dede:field name='typename' function='str_replace("·","",@me)'/}小说">更多{dede:field name='typename' function='str_replace("·","",@me)'/}小说&nbsp;&gt;&gt;</a></div>
+    </div>
+  </div>
+  <div class="Con">
+    <div class="Left">
+      <div class="m_head"><span class="t">书名/章节</span> <span class="w">总字数</span> <span class="a">作者</span><span class="z">状态</span> <span class="tm">更新时间</span> </div>
+      <ul class="ul_m_list">
+	  {dede:field.typeid runphp='yes'"}
+			global $dsql ;
+			$s1="";
+			$query = "SELECT tp.id,tp.typedir,tp.typename,tp.zuozhe,tp.booksize,tp.overdate,tp.lastupdate,zz.typedir as zuozhedir FROM `dede_arctype` tp LEFT JOIN `dede_arctype` zz ON (zz.typename=tp.zuozhe and zz.reid=45) WHERE tp.reid=@me order by lastupdate desc limit 0,50";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+				$s1.='<li><div class="title"><div class="t"><a href="'.$row['typedir'].'/" title="'.$row['typename'].'" target="_blank">'.$row['typename'].'</a></div><div class="n">[<a href="/txt'.$row['typedir'].'.html" title="'.$row['typename'].'txt下载" target="_blank">下载</a>] ';
+				$tid=$row['id'];
+				$over=($row['overdate']=='0') ? "连载":"<font color=blue>完结</font>";
+				$row1 = $dsql->GetOne("Select id,title FROM `dede_archives` Where typeid=$tid order by id desc");
+				if($row1)
+					$s1.='<a href="'.$row['typedir'].'/'.$row1['id'].'.html" title="'.$row['typename'].'-'.$row1['title'].'" target="_blank">'.$row1['title'].'</a>';
+				$s1.='</div></div><div class="words">'.$row['booksize'].'</div><div class="author"><a href="'.$row['zuozhedir'].'.html" target="_blank" title="'.$row['zuozhe'].'作品">'.$row['zuozhe'].'</a></div><div class="abover"><span>'.$over.'</span></div><div class="time">'.date('Y-m-d',$row['lastupdate']).'</div></li>';
+			}
+			@me=$s1;
+		{/dede:field.typeid}
+         </ul>
+		 <div class="bot_more"><a href="{dede:field name='typedir'/}/shuku.html" title="查看更多{dede:field name='typename' function='str_replace("·","",@me)'/}小说">更多{dede:field name='typename' function='str_replace("·","",@me)'/}小说&nbsp;&gt;&gt;</a></div>
+    </div>
+    <div class="Right">
+		<div class="r_box cn">
+			<div class="head"><h2>{dede:field name='typename' function='str_replace("·","",@me)'/}小说作家推荐</h2></div>
+			<ul>
+				{dede:field.typeid runphp='yes'"}
+				global $dsql ;
+				$n=1;
+				$reid=@me;
+				$content="";
+				$query = "SELECT COUNT(a.id) AS ano,a.zuozhe AS zuozhe,b.typeimg,b.description,b.typedir,b.tuijian,SUM(a.bookclick) AS bookclick,SUM(a.booksize) AS booksize,SUM(a.tuijian) AS booktuijian FROM dede_arctype a LEFT JOIN dede_arctype b ON(a.zuozhe=b.typename and b.reid=45) WHERE a.reid=$reid  GROUP BY a.zuozhe order by tuijian desc,booktuijian desc limit 0,10";
+				$dsql->SetQuery($query);
+				$dsql->Execute();
+				while($row=$dsql->GetArray()){
+					if($n==1)
+					{
+						$zuozhe=$row['zuozhe'];
+						$newbook = $dsql->GetOne("SELECT typename,typedir FROM dede_arctype where zuozhe='$zuozhe' and reid=$reid order by overdate");
+						$newbookname = $newbook['typename'];
+						$newbooktypeidr = $newbook['typedir'];
+						$content.="<li><a href='".$row['typedir'].".html' title='".$row['zuozhe']."作品集' target='_blank'>".$row['zuozhe']."</a><span>".$row['ano']."/".$row['booksize']."</span></li><li class='first_con'><div class='pic'><a href='".$row['typedir']."/' title='".$row['zuozhe']."作品集' target='_blank'><img class='lazy' src='".$row['typeimg']."' alt='".$row['zuozhe']."' /></a></div>
+						<div class='a_l'>
+						  <div><span>作品数:</span>".$row['ano']."</div>
+						  <div><span>总字数:</span>".$row['booksize']."</div>
+						  <div><span>总点击:</span>".$row['bookclick']."</div>
+						  <div><span>作家推荐:</span>".$row['tuijian']."</div>
+						  <div><span>作品推荐:</span>".$row['booktuijian']."</div>
+						  <div><span>新书:</span><a href='".$newbooktypeidr."/' title='".$newbookname."' target='_blank'>".$newbookname."</a></div>
+						</div>
+					</li>";
+					}
+					else
+					{
+						$content.="<li><a href='".$row['typedir'].".html' title='".$row['zuozhe']."作品集' target='_blank'>".$row['zuozhe']."</a><span>".$row['ano']."/".$row['booksize']."</span></li>";
+					}
+					$n++;
+				}
+				@me=$content;
+				{/dede:field.typeid}
+		
+			</ul>
+		</div><div class="r_box cmztj cn">
+        <div class="head"><h2>{dede:field name='typename' function='str_replace("·","",@me)'/}新书推荐</h2></div>
+        <ul>
+          {dede:field.typeid runphp='yes'"}
+			global $dsql ;
+			$n=1;
+			$reid=@me;
+			$content="";
+			$uptime=(time()-265000);
+			$query = "SELECT a.typeimg,a.typename,a.description,a.typedir,a.bookclick,a.tuijian,a.zuozhe,b.typedir as zuozhedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) WHERE a.reid=$reid and a.booksize<'300000' and a.lastupdate>'$uptime' order by a.bookclick+a.tuijian desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+			$counta=$row['bookclick']+$row['tuijian'];
+				if($n==1)
+				{
+					$content.="<li><a href='".$row['typedir']."/' title='".$row['typename']."-".$row['zuozhe']."作品' target='_blank'>".$row['typename']."</a><span>".$counta."</span></li><li class='first_con'><div class='pic'><a href='".$row['typedir']."/' title='".$row['typename']."' target='_blank'><img class='lazy' src='".$row['typeimg']."' alt='".$row['typename']."' /></a></div><div class='a_l'><div class='a'><span>作者:</span><a href='".$row['zuozhedir'].".html' target='_blank' title='".$row['zuozhe']."作品'>".$row['zuozhe']."</a></div><div class='l'><span>下载:</span><a href='/txt".$row['typedir'].".html' target='_blank' title='".$row['typename']."txt下载'>txt下载</a></div>
+                            </div>
+				<div class='info'><p><a href='".$row['typedir']."/' target='_blank'>简介：".cn_substr(html2text($row['description']),50)."……</a></p>
+				</div>
+			</li>";
+				}
+				else
+				{
+					$content.="<li><a href='".$row['typedir']."/' title='".$row['typename']."-".$row['zuozhe']."作品' target='_blank'>".$row['typename']."</a><span>".$counta."</span></li>";
+				}
+				$n++;
+			}
+			@me=$content;
+		{/dede:field.typeid}
+           </ul>
+      </div>
+      <div class="r_box rmwbtj cn">
+        <div class="head">
+          <h2>完本{dede:field name='typename' function='str_replace("·","",@me)'/}小说推荐</h2>
+        </div>
+        <ul>
+        {dede:field.typeid runphp='yes'"}
+			global $dsql ;
+			$n=1;
+			$reid=@me;
+			$content="";
+			$query = "SELECT a.typeimg,a.typename,a.description,a.typedir,a.bookclick,a.tuijian,a.zuozhe,b.typedir as zuozhedir FROM dede_arctype a left join dede_arctype b on(b.typename=a.zuozhe and b.reid=45) WHERE a.reid='$reid' and a.overdate<>'0' order by a.bookclick+a.tuijian desc limit 0,10";
+			$dsql->SetQuery($query);
+			$dsql->Execute();
+			while($row=$dsql->GetArray()){
+			$bt=$row['bookclick']+$row['tuijian'];
+				if($n==1)
+				{
+					$content.="<li><a href='".$row['typedir']."/' title='".$row['typename']."-".$row['zuozhe']."作品' target='_blank'>".$row['typename']."</a><span>".$bt."</span></li><li class='first_con'><div class='pic'><a href='".$row['typedir']."/' title='".$row['typename']."' target='_blank'><img class='lazy' src='".$row['typeimg']."' alt='".$row['typename']."' /></a></div><div class='a_l'><div class='a'><span>作者:</span><a href='".$row['zuozhedir'].".html' target='_blank' title='".$row['zuozhe']."作品'>".$row['zuozhe']."</a></div><div class='l'><span>下载:</span><a href='/txt".$row['typedir'].".html' target='_blank' title='".$row['typename']."txt下载'>txt下载</a></div>
+                            </div>
+				<div class='info'><p><a href='".$row['typedir']."/' target='_blank'>简介：".cn_substr(html2text($row['description']),50)."……</a></p>
+				</div>
+			</li>";
+				}
+				else
+				{
+					$content.="<li><a href='".$row['typedir']."/' title='".$row['typename']."-".$row['zuozhe']."作品' target='_blank'>".$row['typename']."</a><span>".$bt."</span></li>";
+				}
+				$n++;
+			}
+			@me=$content;
+		{/dede:field.typeid}
+		</ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!--body结束-->
+<div class="clear"></div>
+<!--footer开始-->
+{dede:include filename="footer.htm"/}
+<div style="display:none;"> 
+  <script type="text/javascript" src="/js/jquery-1.9.0.min.js"></script> 
+  <script type="text/javascript" src="/js/jquery.lazyload.min.js"></script> 
+  <script type='text/javascript'>
+  var cmsUrl="/";
+  $("img.lazy").show().lazyload({placeholder:"/images/loading.gif",loading:true,threshold:200,failure_limit:10,skip_invisible:false,effect:"fadeIn"});
+  function btnin(){$("#info").css("display","block")};function btnout(){$("#info").css("display","none")};
+  window.onscroll=function(){var top = (document.documentElement.scrollTop || document.body.scrollTop);if (top>170){$(".topbox").addClass("topFLOAT");$(".UD").fadeIn();}else{$(".topbox").removeClass("topFLOAT");$(".UD").fadeOut();}};
+  $(".UD").click(function(){$("html,body").animate({scrollTop:0});});
+  $(".fli").hover(function(){$(this).addClass("on");},function(){$(this).removeClass("on");});
+  $(".tab .head a").hover(function(){$(this).siblings().removeClass("active");$(this).addClass("active");$(".tab .box").hide();var showBOX=$(this).attr("showBOX");$("."+showBOX).show();});
+  $(".t_btn a").hover(function(){$(".t_btn a").removeClass("active");$(this).addClass("active");var ul_class=$(this).attr("name");$(".r_box.djb ul").css("display","none");$(".r_box.djb ul"+"."+ul_class).css("display","block");});
+  function addBookmark(){
+	  var urler='/';  
+	  var titler='{dede:global.cgf_top_left/}';
+	  try{  
+		  window.external.AddFavorite(urler,titler);  
+	  }catch(e){  
+		  try{  
+			  window.sidebar.addPanel(titler,urler,"");  
+		  }catch(e){  
+			  alert("360、火狐等浏览器不支持自动添加收藏夹。关闭本对话框后，请您使用快捷键 Ctrl+D 进行添加。");  
+		  }  
+	  }
+  }
+  </script> 
+  <script type="text/javascript" src="/js/xmlJS.js"></script>
+  {dede:myad name='tongji'/}
+ </div>
+{dede:myad name='indexlist11'/}
+{dede:myad name='indexlist21'/}
+</body>
+</html>

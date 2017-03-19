@@ -1,0 +1,144 @@
+/*
+|---------------------------------------------------------------
+|	Login Style
+|---------------------------------------------------------------
+|	File:login.css
+|	Creation Date:2011-02-18
+|	Last Modified:2011-02-18
+|	Author:networker<networker@itwoo.org>
+|	From:DesDev	INC.
+|---------------------------------------------------------------
+*/
+*{
+	margin: 0;padding: 0;
+	}
+body {
+	background:url(../images/logo_bg.png) repeat;	font-size: 12px;
+}
+#login-box {
+	position: absolute;
+	border:1px solid #c4c4c4;
+	width:340px;
+	height: auto;
+	left:50%;
+	top:50%;
+	padding-top:10px;
+	margin-left:-171px;
+    margin-top: -150px;
+    border-radius: 2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	-webkit-box-shadow:  0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow:  0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    background: #fefefe;
+}
+
+#login-box:after,#login-box:before{
+	background: #f9f9f9;
+	background: -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+	background: -o-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+	background: linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f9f9f9',GradientType=0 );
+	border: 1px solid #c4c6ca;
+	content: "";
+	display: block;
+	height: 100%;
+	left: -1px;
+	position: absolute;
+	width: 100%;
+}
+#login-box:after{
+	-webkit-transform: rotate(2deg);
+	-moz-transform: rotate(2deg);
+	-ms-transform: rotate(2deg);
+	-o-transform: rotate(2deg);
+	transform: rotate(2deg);
+	top: 0;
+	z-index: -1;
+}
+#login-box:before{
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-ms-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+	top: 0;
+	z-index: -2;
+}
+.login-main {
+	margin: 0 20px;
+	padding-bottom:10px;
+}
+.login-main dl {
+}
+.login-main dl dd {
+	height:30px;
+	line-height:30px;
+	display:inline-block;
+	margin-top:5px;
+}
+.login-main dl dd input {
+	color: #555;font-size:14px;width:270px;height:20px;padding: 3px;margin: 2px 6px 16px 0;border: 1px solid #E5E5E5;
+	background: #FBFBFB;outline: 0;box-shadow: inset 1px 1px 2px rgba(200,200,200,0.2);border-radius: 3px;
+	transition:all 0.3s ease-in-out;	-webkit-transition:all 0.3s ease-in-out;-moz-transition:all 0.3s ease-in-out;
+	}
+.login-main dl dd input:focus{
+	border: 1px solid rgb(53, 165, 229);
+box-shadow: 0px 0px 5px rgb(81, 203, 238);
+	-webkit-box-shadow: 0 0 5px rgb(81, 203, 238);
+	-moz-box-shadow: 0 0 5px rgb(81, 203, 238);
+	}
+.login-main dl dt {
+	font-size:14px;
+	color:#333;
+	display:block; 
+		margin-top:5px;
+}
+.login-main dl dd input#vdcode {
+	width:50px;
+	margin-right:5px;
+}
+.login-btn {
+	float: right;
+	color:#fff;
+	line-height: 18px;
+	text-decoration: none;
+	text-transform: uppercase;
+	background:#76CA1D url(../images/bg_bigbutton.png) no-repeat right center;
+	padding: 2px 32px 2px 12px;
+	border: 3px solid #fff;
+	white-space: nowrap;display:inline;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	-moz-box-shadow: 0 0 7px #999;
+	-webkit-box-shadow: 0 0 7px #999;
+	box-shadow: 0 0 7px #999;
+	-moz-text-shadow: -1px -1px 0 #798c41;
+	-webkit-text-shadow: -1px -1px 0 #798c41;
+	text-shadow: -1px -1px 0 #798C41;
+	cursor: pointer;
+}
+.login-btn:hover{
+background-color: #6CC40F
+
+	}
+.login-bottom {
+	clear:both;
+	padding:10px 20px;
+	height:28px;
+	line-height:28px;
+	text-align:left;
+	background: #F5F5F5;
+	border-top:1px solid #E5E5E5;
+}
+.login-bottom a {
+	color:#21759B;
+}
+.login-bottom a:hover {
+	color:#333;
+	text-decoration:underline;
+}

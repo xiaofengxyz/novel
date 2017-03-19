@@ -1,0 +1,47 @@
+<?php echo"<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"; ?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+<title>您的阅读足迹</title>
+<meta name="keywords" content="您的阅读足迹" />
+<meta name="description" content="您的阅读足迹" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="/css/h_wap.css" media="all" />
+</head>
+<body>
+<?php include($cfg_templets_dir."/wap/head.htm"); ?>
+<div class="channel">
+	<?php echo $channellist; ?>
+</div>
+<form name="From" method="post" action="/wap.php?action=search<?php echo $wxuid; ?>" class="search-form">
+	<input type="hidden" name="objectType" value="2" />
+	<table>
+		<tr>
+			<td><input type="text" name="wd" class="text-border vm" value="" /></td>
+			<td width="8"></td>
+			<td width="70"><input type="submit" class="btn btn-auto btn-blue vm" value="搜索" /></td>
+		</tr>
+	</table>
+</form>
+<div class="container">
+	<h1 class="page-title">您的阅读足迹</h1>
+	<div class="mod block book-all-list">
+		<div class="bd">
+			<ul>
+			<?php echo $jilucontents; ?>
+			</ul>
+		</div>
+	</div>
+</div>
+<?php include($cfg_templets_dir."/wap/footer.htm"); ?>
+<!--[if IE]>
+<link href="" rel="stylesheet" type="text/css" />
+<![endif]-->
+</body>
+</html>
