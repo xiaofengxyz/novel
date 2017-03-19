@@ -1,8 +1,8 @@
 <?php
 $cfg_basehost = 'http://127.0.0.1';
-$cfg_cmspath = '';
-$cfg_cookie_encode = 'BuITi8017Z';
-$cfg_indexurl = '/';
+$cfg_cmspath = '/dede';
+$cfg_cookie_encode = 'JbLIx7076X';
+$cfg_indexurl = '/dede';
 $cfg_backup_dir = 'backupdata';
 $cfg_indexname = '主页';
 $cfg_webname = '我的小说网';

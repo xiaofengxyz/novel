@@ -105,11 +105,11 @@ class MakeDBDocument
     {
         $namehtml = $tablehtml = '';
         $this->dsql->Execute('me', ' SHOW TABLES; ');
-        while( $row = $this->dsql->GetArray('me', MYSQL_NUM) )
+        while( $row = $this->dsql->GetArray('me', MYSQLI_NUM) )
         {
             // print_r($row);exit;
             $this->dsql->Execute('dd', " Show CREATE TABLE `{$row[0]}` ");
-            $row2 = $this->dsql->GetArray('dd', MYSQL_NUM);
+            $row2 = $this->dsql->GetArray('dd', MYSQLI_NUM);
             
             if( $type=='' )
             {

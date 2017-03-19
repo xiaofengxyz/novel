@@ -87,7 +87,7 @@ class DedeSqli
     }
     function SelectDB($dbname)
     {
-        mysql_select_db($dbname);
+        mysqli_select_db($dbname);
     }
 
     //设置SQL里的参数
@@ -144,13 +144,13 @@ class DedeSqli
     //为了防止采集等需要较长运行时间的程序超时，在运行这类程序时设置系统等待和交互时间
     function SetLongLink()
     {
-        @mysqli_query("SET interactive_timeout=3600, wait_timeout=3600 ;", $this->linkID);
+        @mysqli_query($this->linkID, "SET interactive_timeout=3600, wait_timeout=3600 ;");
     }
 
     //获得错误描述
     function GetError()
     {
-        $str = mysql_error();
+        $str = mysqli_error();
         return $str;
     }
 
@@ -373,7 +373,7 @@ class DedeSqli
             $this->Open(FALSE);
             $dsqli->isClose = FALSE;
         }
-        $this->result[$id] = @mysqli_query($sql,$this->linkID);
+        $this->result[$id] = @mysqli_query($this->linkID, $sql);
     }
 
     //返回当前的一条记录并把游标移向下一记录

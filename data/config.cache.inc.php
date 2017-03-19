@@ -1,13 +1,13 @@
 <?php
 $cfg_disable_funs = 'phpinfo,eval,exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source,file_put_contents';
 $cfg_disable_tags = '';
-$cfg_basehost = 'http://demo6.52jscn.com/';
-$cfg_cmspath = '';
-$cfg_cookie_encode = 'IcgM1o6aiouwKoin1wigd5cfObu5f';
-$cfg_indexurl = '/';
+$cfg_basehost = 'http://127.0.0.1';
+$cfg_cmspath = '/dede';
+$cfg_cookie_encode = 'GRSxqEt1gvf778cn1i8FHpQEgOML';
+$cfg_indexurl = '/dede';
 $cfg_backup_dir = 'backupdata';
-$cfg_indexname = '新书小说网-锦尚中国源码论坛';
-$cfg_webname = '新书小说网-锦尚中国源码论坛';
+$cfg_indexname = '皇甫奇新书_方想新书_梦入神机新书_烟雨江南新书_新书在线';
+$cfg_webname = '我的小说网';
 $cfg_adminemail = 'admin@127.0.0.1';
 $cfg_html_editor = 'ckeditor';
 $cfg_arcdir = '/html';
@@ -159,7 +159,7 @@ $cfg_fengyun = '0';
 $cfg_newbooks = '0';
 $cfg_jingpin = '0';
 $co_time = 1;
-$cfg_wapurl = 'http://demo6.52jscn.com/wap.php';
+$cfg_wapurl = 'http://127.0.0.1';
 $novel_powerby = '本站小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。';
 $cgf_top_left = '新书在线-世间唯有读书高';
 $cgf_top_right = '本站所有小说，均为<font class="red"> 全文免费在线阅读 </font>！';

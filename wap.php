@@ -625,7 +625,7 @@ else if($action=='article')
 	  left join `#@__co_note` co on co.nid=tp.copynid
 	  where arc.id='$id'
 	";
-	$row = $dsql->GetOne($query,MYSQL_ASSOC);
+	$row = $dsql->GetOne($query,MYSQLI_ASSOC);
 	foreach($row as $k=>$v) $$k = $v;
 	unset($row);
 	$pubdate = strftime("%y-%m-%d %H:%M:%S",$pubdate);

@@ -15,7 +15,7 @@ require_once './libraries/logging.lib.php';
  * MySQL client API
  */
 if (! defined('PMA_MYSQL_CLIENT_API')) {
-    $client_api = explode('.', mysql_get_client_info());
+    $client_api = explode('.', mysqli_get_client_info());
     define('PMA_MYSQL_CLIENT_API', (int)sprintf('%d%02d%02d', $client_api[0], $client_api[1], intval($client_api[2])));
     unset($client_api);
 }
@@ -36,15 +36,15 @@ function PMA_DBI_real_connect($server, $user, $password, $client_flags, $persist
 
     if (empty($client_flags)) {
         if ($cfg['PersistentConnections'] || $persistent) {
-            $link = @mysql_pconnect($server, $user, $password);
+            $link = @mysqli_pconnect($server, $user, $password);
         } else {
-            $link = @mysql_connect($server, $user, $password);
+            $link = @mysqli_connect($server, $user, $password);
         }
     } else {
         if ($cfg['PersistentConnections'] || $persistent) {
-            $link = @mysql_pconnect($server, $user, $password, $client_flags);
+            $link = @mysqli_pconnect($server, $user, $password, $client_flags);
         } else {
-            $link = @mysql_connect($server, $user, $password, false, $client_flags);
+            $link = @mysqli_connect($server, $user, $password, false, $client_flags);
         }
     }
 
@@ -83,19 +83,19 @@ function PMA_DBI_connect($user, $password, $is_controluser = false, $server = nu
 
     $client_flags = 0;
 
-    // always use CLIENT_LOCAL_FILES as defined in mysql_com.h
+    // always use CLIENT_LOCAL_FILES as defined in mysqli_com.h
     // for the case where the client library was not compiled
     // with --enable-local-infile
     $client_flags |= 128;
 
     /* Optionally compress connection */
     if (defined('MYSQL_CLIENT_COMPRESS') && $cfg['Server']['compress']) {
-        $client_flags |= MYSQL_CLIENT_COMPRESS;
+        $client_flags |= MYSQLI_CLIENT_COMPRESS;
     }
 
     /* Optionally enable SSL */
     if (defined('MYSQL_CLIENT_SSL') && $cfg['Server']['ssl']) {
-        $client_flags |= MYSQL_CLIENT_SSL;
+        $client_flags |= MYSQLI_CLIENT_SSL;
     }
 
     if (!$server) {
@@ -149,7 +149,7 @@ function PMA_DBI_select_db($dbname, $link = null)
             return false;
         }
     }
-    return mysql_select_db($dbname, $link);
+    return mysqli_select_db($link, $dbname);
 }
 
 /**
@@ -163,11 +163,11 @@ function PMA_DBI_select_db($dbname, $link = null)
 function PMA_DBI_real_query($query, $link, $options)
 {
     if ($options == ($options | PMA_DBI_QUERY_STORE)) {
-        return mysql_query($query, $link);
+        return mysqli_query($link, $query);
     } elseif ($options == ($options | PMA_DBI_QUERY_UNBUFFERED)) {
         return mysql_unbuffered_query($query, $link);
     } else {
-        return mysql_query($query, $link);
+        return mysqli_query($link, query);
     }
 }
 
@@ -179,7 +179,7 @@ function PMA_DBI_real_query($query, $link, $options)
  */
 function PMA_DBI_fetch_array($result)
 {
-    return mysql_fetch_array($result, MYSQL_BOTH);
+    return mysqli_fetch_array($result, MYSQLI_BOTH);
 }
 
 /**
@@ -190,7 +190,7 @@ function PMA_DBI_fetch_array($result)
  */
 function PMA_DBI_fetch_assoc($result)
 {
-    return mysql_fetch_array($result, MYSQL_ASSOC);
+    return mysqli_fetch_array($result, MYSQLI_ASSOC);
 }
 
 /**
@@ -201,7 +201,7 @@ function PMA_DBI_fetch_assoc($result)
  */
 function PMA_DBI_fetch_row($result)
 {
-    return mysql_fetch_array($result, MYSQL_NUM);
+    return mysqli_fetch_array($result, MYSQLI_NUM);
 }
 
 /**
@@ -213,7 +213,7 @@ function PMA_DBI_fetch_row($result)
  */
 function PMA_DBI_data_seek($result, $offset)
 {
-    return mysql_data_seek($result, $offset);
+    return mysqli_data_seek($result, $offset);
 }
 
 /**
@@ -224,7 +224,7 @@ function PMA_DBI_data_seek($result, $offset)
 function PMA_DBI_free_result($result)
 {
     if (is_resource($result) && get_resource_type($result) === 'mysql result') {
-        mysql_free_result($result);
+        mysqli_free_result($result);
     }
 }
 
@@ -271,7 +271,7 @@ function PMA_DBI_get_host_info($link = null)
             return false;
         }
     }
-    return mysql_get_host_info($link);
+    return mysqli_get_host_info($link);
 }
 
 /**
@@ -289,7 +289,7 @@ function PMA_DBI_get_proto_info($link = null)
             return false;
         }
     }
-    return mysql_get_proto_info($link);
+    return mysqli_get_proto_info($link);
 }
 
 /**
@@ -299,7 +299,7 @@ function PMA_DBI_get_proto_info($link = null)
  */
 function PMA_DBI_get_client_info()
 {
-    return mysql_get_client_info();
+    return mysqli_get_client_info();
 }
 
 /**
@@ -327,11 +327,11 @@ function PMA_DBI_getError($link = null)
     }
 
     if (null !== $link && false !== $link) {
-        $error_number = mysql_errno($link);
-        $error_message = mysql_error($link);
+        $error_number = mysqli_errno($link);
+        $error_message = mysqli_error($link);
     } else {
-        $error_number = mysql_errno();
-        $error_message = mysql_error();
+        $error_number = mysqli_errno();
+        $error_message = mysqli_error();
     }
     if (0 == $error_number) {
         return false;
@@ -352,7 +352,7 @@ function PMA_DBI_getError($link = null)
 function PMA_DBI_num_rows($result)
 {
     if (!is_bool($result)) {
-        return mysql_num_rows($result);
+        return mysqli_num_rows($result);
     } else {
         return 0;
     }
@@ -401,7 +401,7 @@ function PMA_DBI_affected_rows($link = null, $get_from_cache = true)
     if ($get_from_cache) {
         return $GLOBALS['cached_affected_rows'];
     } else {
-        return mysql_affected_rows($link);
+        return mysqli_affected_rows($link);
     }
 }
 
@@ -415,12 +415,12 @@ function PMA_DBI_affected_rows($link = null, $get_from_cache = true)
 function PMA_DBI_get_fields_meta($result)
 {
     $fields       = array();
-    $num_fields   = mysql_num_fields($result);
+    $num_fields   = mysqli_num_fields($result);
     for ($i = 0; $i < $num_fields; $i++) {
-        $field = mysql_fetch_field($result, $i);
-        $field->flags = mysql_field_flags($result, $i);
-        $field->orgtable = mysql_field_table($result, $i);
-        $field->orgname = mysql_field_name($result, $i);
+        $field = mysqli_fetch_field($result, $i);
+        $field->flags = mysqli_field_flags($result, $i);
+        $field->orgtable = mysqli_field_table($result, $i);
+        $field->orgname = mysqli_field_name($result, $i);
         $fields[] = $field;
     }
     return $fields;
@@ -434,7 +434,7 @@ function PMA_DBI_get_fields_meta($result)
  */
 function PMA_DBI_num_fields($result)
 {
-    return mysql_num_fields($result);
+    return mysqli_num_fields($result);
 }
 
 /**
@@ -446,7 +446,7 @@ function PMA_DBI_num_fields($result)
  */
 function PMA_DBI_field_len($result, $i)
 {
-    return mysql_field_len($result, $i);
+    return mysqli_field_len($result, $i);
 }
 
 /**
@@ -458,7 +458,7 @@ function PMA_DBI_field_len($result, $i)
  */
 function PMA_DBI_field_name($result, $i)
 {
-    return mysql_field_name($result, $i);
+    return mysqli_field_name($result, $i);
 }
 
 /**
@@ -470,7 +470,7 @@ function PMA_DBI_field_name($result, $i)
  */
 function PMA_DBI_field_flags($result, $i)
 {
-    return mysql_field_flags($result, $i);
+    return mysqli_field_flags($result, $i);
 }
 
 ?>

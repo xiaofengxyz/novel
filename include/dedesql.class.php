@@ -86,7 +86,7 @@ class DedeSql
     }
     function SelectDB($dbname)
     {
-        mysql_select_db($dbname);
+        mysqli_select_db($this->linkID, $dbname);
     }
 
     //设置SQL里的参数
@@ -114,11 +114,11 @@ class DedeSql
                 
                 if(!$pconnect)
                 {
-                    $this->linkID  = @mysql_connect($this->dbHost,$this->dbUser,$this->dbPwd);
+                    $this->linkID  = @mysqli_connect($this->dbHost,$this->dbUser,$this->dbPwd);
                 }
                 else
                 {
-                    $this->linkID = @mysql_pconnect($this->dbHost,$this->dbUser,$this->dbPwd);
+                    $this->linkID = @mysqli_pconnect($this->dbHost,$this->dbUser,$this->dbPwd);
                 }
                 $i++;
             }
@@ -134,13 +134,13 @@ class DedeSql
             exit();
         }
 		$this->isInit = TRUE;
-        @mysql_select_db($this->dbName);
+        @mysqli_select_db($this->linkID, $this->dbName);
         $mysqlver = explode('.',$this->GetVersion());
         $mysqlver = $mysqlver[0].'.'.$mysqlver[1];
 		
         if($mysqlver>4.0)
         {
-            @mysql_query("SET NAMES '".$GLOBALS['cfg_db_language']."', character_set_client=binary, sql_mode='', interactive_timeout=3600 ;", $this->linkID);
+            @mysqli_query($this->linkID, "SET NAMES '".$GLOBALS['cfg_db_language']."', character_set_client=binary, sql_mode='', interactive_timeout=3600 ;");
         }
 
         return TRUE;
@@ -149,13 +149,13 @@ class DedeSql
     //为了防止采集等需要较长运行时间的程序超时，在运行这类程序时设置系统等待和交互时间
     function SetLongLink()
     {
-        @mysql_query("SET interactive_timeout=3600, wait_timeout=3600 ;", $this->linkID);
+        @mysqli_query($this->linkID, "SET interactive_timeout=3600, wait_timeout=3600 ;");
     }
 
     //获得错误描述
     function GetError()
     {
-        $str = mysql_error();
+        $str = mysqli_error();
         return $str;
     }
 
@@ -167,7 +167,7 @@ class DedeSql
         $this->FreeResultAll();
         if($isok)
         {
-            @mysql_close($this->linkID);
+            @mysqli_close($this->linkID);
             $this->isClose = TRUE;
             $GLOBALS['dsql'] = NULL;
         }
@@ -181,16 +181,16 @@ class DedeSql
     //关闭指定的数据库连接
     function CloseLink($dblink)
     {
-        @mysql_close($dblink);
+        @mysqli_close($dblink);
     }
     
     function Esc( $_str ) 
     {
         if ( version_compare( phpversion(), '4.3.0', '>=' ) ) 
         {
-            return @mysql_real_escape_string( $_str );
+            return @mysqli_real_escape_string($this->linkID, $_str );
         } else {
-            return @mysql_escape_string( $_str );
+            return @mysqli_escape_string($this->linkID, $_str );
         }
     }
 
@@ -223,7 +223,7 @@ class DedeSql
         //SQL语句安全检查
         if($this->safeCheck) CheckSql($this->queryString,'update');
 		$t1 = ExecTime();
-		$rs = mysql_query($this->queryString,$this->linkID);
+		$rs = mysqli_query($this->linkID, $this->queryString);
 		
         //查询性能测试
         if($this->recordLog) {
@@ -261,7 +261,7 @@ class DedeSql
             }
         }
 		$t1 = ExecTime();
-        mysql_query($this->queryString,$this->linkID);
+        mysqli_query($this->linkID, $this->queryString);
 		
         //查询性能测试
         if($this->recordLog) {
@@ -270,7 +270,7 @@ class DedeSql
             //echo $this->queryString."--{$queryTime}<hr />\r\n"; 
         }
 		
-        return mysql_affected_rows($this->linkID);
+        return mysqli_affected_rows($this->linkID);
     }
 
     function ExecNoneQuery($sql='')
@@ -280,12 +280,12 @@ class DedeSql
     
     function GetFetchRow($id='me')
     {
-        return @mysql_fetch_row($this->result[$id]);
+        return @mysqli_fetch_row($this->result[$id]);
     }
     
     function GetAffectedRows()
     {
-        return mysql_affected_rows($this->linkID);
+        return mysqli_affected_rows($this->linkID);
     }
 
     //执行一个带返回结果的SQL语句，如SELECT，SHOW等
@@ -314,7 +314,7 @@ class DedeSql
 		
         $t1 = ExecTime();
         
-        $this->result[$id] = mysql_query($this->queryString,$this->linkID);
+        $this->result[$id] = mysqli_query($this->linkID, $this->queryString);
         
         if($this->recordLog) {
 			$queryTime = ExecTime() - $t1;
@@ -323,7 +323,7 @@ class DedeSql
         
         if(!empty($this->result[$id]) && $this->result[$id]===FALSE)
         {
-            $this->DisplayError(mysql_error()." <br />Error sql: <font color='red'>".$this->queryString."</font>");
+            $this->DisplayError(mysqli_error()." <br />Error sql: <font color='red'>".$this->queryString."</font>");
         }
     }
 
@@ -333,7 +333,7 @@ class DedeSql
     }
 
     //执行一个SQL语句,返回前一条记录或仅返回一条记录
-    function GetOne($sql='',$acctype=MYSQL_ASSOC)
+    function GetOne($sql='',$acctype=MYSQLI_ASSOC)
     {
         global $dsql;
 		if(!$dsql->isInit)
@@ -358,7 +358,7 @@ class DedeSql
         }
         else
         {
-            @mysql_free_result($this->result["one"]); return($arr);
+            @mysqli_free_result($this->result["one"]); return($arr);
         }
     }
 
@@ -375,12 +375,12 @@ class DedeSql
             $this->Open(FALSE);
             $dsql->isClose = FALSE;
         }
-        $this->result[$id] = @mysql_query($sql,$this->linkID);
+        $this->result[$id] = @mysqli_query($this->linkID, $sql);
     }
 
     //返回当前的一条记录并把游标移向下一记录
-    // MYSQL_ASSOC、MYSQL_NUM、MYSQL_BOTH
-    function GetArray($id="me",$acctype=MYSQL_ASSOC)
+    // MYSQLI_ASSOC、MYSQLI_NUM、MYSQLI_BOTH
+    function GetArray($id="me",$acctype=MYSQLI_ASSOC)
     {
         if($this->result[$id]==0)
         {
@@ -388,7 +388,7 @@ class DedeSql
         }
         else
         {
-            return mysql_fetch_array($this->result[$id],$acctype);
+            return mysqli_fetch_array($this->result[$id],$acctype);
         }
     }
 
@@ -400,7 +400,7 @@ class DedeSql
         }
         else
         {
-            return mysql_fetch_object($this->result[$id]);
+            return mysqli_fetch_object($this->result[$id]);
         }
     }
 
@@ -414,7 +414,7 @@ class DedeSql
 		}
         $prefix="#@__";
         $tbname = str_replace($prefix, $GLOBALS['cfg_dbprefix'], $tbname);
-        if( mysql_num_rows( @mysql_query("SHOW TABLES LIKE '".$tbname."'", $this->linkID)))
+        if( mysqli_num_rows( @mysqli_query($this->linkID, "SHOW TABLES LIKE '".$tbname."'")))
         {
             return TRUE;
         }
@@ -435,10 +435,10 @@ class DedeSql
             $dsql->isClose = FALSE;
         }
         
-        $rs = @mysql_query("SELECT VERSION();",$this->linkID);
-        $row = @mysql_fetch_array($rs);
+        $rs = @mysqli_query($this->linkID, "SELECT VERSION();");
+        $row = @mysqli_fetch_array($rs);
         $mysql_version = $row[0];
-        @mysql_free_result($rs);
+        @mysqli_free_result($rs);
         if($isformat)
         {
             $mysql_versions = explode(".",trim($mysql_version));
@@ -455,13 +455,13 @@ class DedeSql
 		{
 			$this->Init($this->pconnect);
 		}
-        $this->result[$id] = mysql_list_fields($this->dbName,$tbname,$this->linkID);
+        $this->result[$id] = mysqli_query($this->linkID, "SHOW COLUMNS FROM ".$tbname); //mysqli_list_fields($this->dbName,$tbname,$this->linkID);
     }
 
     //获取字段详细信息
     function GetFieldObject($id="me")
     {
-        return mysql_fetch_field($this->result[$id]);
+        return mysqli_fetch_field($this->result[$id]);
     }
 
     //获得查询的总记录数
@@ -485,13 +485,13 @@ class DedeSql
         //$rs = mysql_query("Select LAST_INSERT_ID() as lid",$this->linkID);
         //$row = mysql_fetch_array($rs);
         //return $row["lid"];
-        return mysql_insert_id($this->linkID);
+        return mysqli_insert_id($this->linkID);
     }
 
     //释放记录集占用的资源
     function FreeResult($id="me")
     {
-        @mysql_free_result($this->result[$id]);
+        @mysqli_free_result($this->result[$id]);
     }
     function FreeResultAll()
     {
@@ -503,7 +503,7 @@ class DedeSql
         {
             if($vv)
             {
-                @mysql_free_result($vv);
+                @mysqli_free_result($vv);
             }
         }
     }

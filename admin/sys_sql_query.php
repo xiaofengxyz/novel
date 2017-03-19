@@ -23,7 +23,7 @@ if($dopost=="viewinfo")
     {
         $dsql->SetQuery("SHOW CREATE TABLE ".$dsql->dbName.".".$tablename);
         $dsql->Execute('me');
-        $row2 = $dsql->GetArray('me',MYSQL_BOTH);
+        $row2 = $dsql->GetArray('me',MYSQLI_BOTH);
         $ctinfo = $row2[1];
         echo "<xmp>".trim($ctinfo)."</xmp>";
     }
@@ -49,7 +49,7 @@ else if($dopost=="opimizeAll")
 {
     $dsql->SetQuery("SHOW TABLES");
     $dsql->Execute('t');
-    while($row = $dsql->GetArray('t',MYSQL_BOTH))
+    while($row = $dsql->GetArray('t',MYSQLI_BOTH))
     {
         $rs = $dsql->ExecuteNoneQuery("OPTIMIZE TABLE `{$row[0]}` ");
         if($rs) 
@@ -81,7 +81,7 @@ else if($dopost=="repairAll")
 {
     $dsql->SetQuery("Show Tables");
     $dsql->Execute('t');
-    while($row = $dsql->GetArray('t',MYSQL_BOTH))
+    while($row = $dsql->GetArray('t',MYSQLI_BOTH))
     {
         $rs = $dsql->ExecuteNoneQuery("REPAIR TABLE `{$row[0]}` ");
         if($rs) 

@@ -127,13 +127,13 @@ if(empty($row['maintable'])) $row['maintable'] = '#@__archives';
 
 $rs = $dsql->SetQuery("SHOW fields FROM `{$row['maintable']}`");
 $dsql->Execute('a');
-while($nrow = $dsql->GetArray('a', MYSQL_ASSOC))
+while($nrow = $dsql->GetArray('a', MYSQLI_ASSOC))
 {
     $fields[strtolower($nrow['Field'])] = 1;
 }
 
 $dsql->Execute("a", "SHOW fields FROM `{$row['addtable']}`");
-while($nrow = $dsql->GetArray('a', MYSQL_ASSOC))
+while($nrow = $dsql->GetArray('a', MYSQLI_ASSOC))
 {
     if(!isset($fields[strtolower($nrow['Field'])]))
     {

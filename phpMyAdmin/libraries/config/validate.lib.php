@@ -218,11 +218,11 @@ function test_db_connection($extension, $connect_type, $host, $port, $socket, $u
             break;
         }
     } else if ($extension == 'mysql') {
-        $conn = @mysql_connect($host . $socket . $port, $user, $pass);
+        $conn = @mysqli_connect($host . $socket . $port, $user, $pass);
         if (!$conn) {
             $error = __('Could not connect to MySQL server');
         } else {
-            mysql_close($conn);
+            mysqli_close($conn);
         }
     } else {
         $conn = @mysqli_connect($host, $user, $pass, null, $port, $socket);

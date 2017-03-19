@@ -46,7 +46,7 @@ function helper($helpers)
 
     if (isset($_helpers[$helpers]))
     {
-        continue;
+        return;
     }
     if (file_exists(DEDEINC.'/helpers/'.$helpers.'.helper.php'))
     { 

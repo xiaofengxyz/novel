@@ -160,13 +160,13 @@ class api_ucenter
 		$connect = '';		
 		if($uc_setings['connect'])
 		{
-			$uc_dblink = @mysql_connect($uc_setings['dbhost'], $uc_setings['dbuser'], $uc_dbpass, 1);
+			$uc_dblink = @mysqli_connect($uc_setings['dbhost'], $uc_setings['dbuser'], $uc_dbpass, 1);
 			if(!$uc_dblink)
 			{
 				ShowMsg('数据库连接失败!',-1);
 				exit();
 			}else{
-				mysql_close($uc_dblink);
+				mysqli_close($uc_dblink);
 			}
 			
 			$connect = 'mysql';
@@ -315,8 +315,8 @@ function api_write_config($config, $file)
 		$content = trim($content);
 		$content = substr($content, -2) == '?>' ? substr($content, 0, -2) : $content;
 		$content = strstr($content, '_|cfg_|GLOBALS') ? str_replace('_|cfg_|GLOBALS','cfg_|GLOBALS',$content) : $content;
-		$link = mysql_connect($ucdbhost, $ucdbuser, $ucdbpw, 1);
-		$uc_connnect = $link && mysql_select_db($ucdbname, $link) ? 'mysql' : '';
+		$link = mysqli_connect($ucdbhost, $ucdbuser, $ucdbpw, 1);
+		$uc_connnect = $link && mysqli_select_db($link, $ucdbname) ? 'mysql' : '';
 		$content = api_insert_config($content, "/define\('UC_CONNECT',\s*'.*?'\);/i", "define('UC_CONNECT', '$uc_connnect');");
 		$content = api_insert_config($content, "/define\('UC_DBHOST',\s*'.*?'\);/i", "define('UC_DBHOST', '$ucdbhost');");
 		$content = api_insert_config($content, "/define\('UC_DBUSER',\s*'.*?'\);/i", "define('UC_DBUSER', '$ucdbuser');");
